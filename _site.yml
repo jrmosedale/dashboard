@@ -7,9 +7,3 @@ navbar:
       href: index.html
     - text: "About"
       href: about.html
-    - test: "Dashboard"
-      href: 2018-09-20-testing-flexdashboard.html
-output:
-  html_document:
-    theme: paper
-    css: 'styles.css'
