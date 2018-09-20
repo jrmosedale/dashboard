@@ -104,39 +104,34 @@ leaflet() %>%
 ```
 
 ### CSA and CTA winners
-### CSA & CTA Businesses
 
-```{r}
-leafletOutput("csamap", width="100%", height="300px")
 
-```
-
-```{r, context="server", include=FALSE}
+```{r,  echo=FALSE}
 # Create popup message
 csa.popup<-paste("<b>",csawinners$Business,"</b>","-",csawinners$Award,csawinners$Year)
 cta.popup<-paste("<b>",cta2018$Enterprise,"</b>","-",cta2018$Award,cta2018$Year)
 
-output$csamap<-renderLeaflet({
+
 leaflet() %>% 
-  setView(lng = -4.9, lat = 50.4, zoom = 10)  %>%
-  addProviderTiles("OpenStreetMap.Mapnik") %>%
-  addScaleBar() %>%
-  addAwesomeMarkers(data=prepare_sf_for_leaflet(csawinners),
-                    icon=csa_icons(), 
-                    label = ~as.character(Business),
-                    popup = csa.popup,
-                    group= "CSA businesses")  %>%
-  addAwesomeMarkers(data=prepare_sf_for_leaflet(cta2018),
-                    icon=cta_icons(), 
-                    label = ~as.character(Enterprise),
-                    popup = cta.popup,
-                    group ="CTA businesses" )  %>%
-  addLayersControl(
-                    overlayGroups =c("CSA businesses", "CTA businesses"),
-                    options = layersControlOptions(collapsed=FALSE)  
-  )  %>%
-  hideGroup(c("CTA businesses"))
-}) 
+setView(lng = -4.9, lat = 50.4, zoom = 10)  %>%
+addProviderTiles("OpenStreetMap.Mapnik") %>%
+addScaleBar() %>%
+addAwesomeMarkers(data=prepare_sf_for_leaflet(csawinners),
+                  icon=csa_icons(), 
+                  label = ~as.character(Business),
+                  popup = csa.popup,
+                  group= "CSA businesses")  %>%
+addAwesomeMarkers(data=prepare_sf_for_leaflet(cta2018),
+                  icon=cta_icons(), 
+                  label = ~as.character(Enterprise),
+                  popup = cta.popup,
+                  group ="CTA businesses" )  %>%
+addLayersControl(
+                  overlayGroups =c("CSA businesses", "CTA businesses"),
+                  options = layersControlOptions(collapsed=FALSE)  
+)  %>%
+hideGroup(c("CTA businesses"))
+
 
 ```
 
