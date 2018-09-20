@@ -4,6 +4,7 @@ output:
   flexdashboard::flex_dashboard:
     orientation: rows
     theme: simplex
+    logo: images/SWEEPLOGO.png
 ---
 
 ```{r, setup, include=FALSE}
