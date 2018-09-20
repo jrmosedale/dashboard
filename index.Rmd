@@ -11,7 +11,9 @@ $('.navbar-logo').wrap('<a href="http://www.sweep.ac.uk"> target=_blank');
 </script>
 
 ```{r, setup, include=FALSE}
-#rmarkdown::render_site()
+#   rmarkdown::render_site()
+#   https://jrmosedale.github.io/dashboard/
+
 library(flexdashboard)
 
 library(raster)
@@ -67,6 +69,7 @@ tevi_icons <- function(tevibus){
 Section 1 Business Locations and Engagement 
 ============================================================================================
 Businesses participating (as of September 2018) in the [Tevi](https://tevi.co.uk) programme, award winners of the [Cornwall Sustainability Awards](https://www.cornwallsustainabilityawards.org) (2004-17) and [Cornwall Tourism Awards](http://www.cornwalltourismawards.org.uk) (2018 only).
+Click on marker for further information.
 
 
 
