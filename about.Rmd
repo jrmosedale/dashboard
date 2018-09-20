@@ -1,0 +1,13 @@
+---
+title: "About"
+author: "JMosedale"
+date: "20/09/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## About this site
+something...

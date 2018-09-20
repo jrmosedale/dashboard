@@ -1,0 +1,104 @@
+---
+title: "TeviHub"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    theme: simplex
+---
+
+```{r, setup, include=FALSE}
+library(flexdashboard)
+
+library(raster)
+library(leaflet)
+library(magrittr)
+library(colorspace)
+library(rgeos)
+library(ggplot2)
+library(rgdal)
+library(sf)
+library(units)
+library(leaflet.extras)
+
+################################################
+# Directories
+###############################################
+# if (Sys.getenv("HOME")=="/Users/jm622") in.root<-paste0(Sys.getenv("HOME"),"/OneDrive - University of Exeter/Rprojects/EG4B/app/")
+in.root<-"data/"
+
+################################################
+# Load functions 
+###############################################
+source("Rscripts/functions.R")
+
+# Presentation functions etc
+csa_icons <- function() {
+  awesomeIcons(
+  icon = 'ios-close',
+  iconColor = 'black',
+  library = 'ion',
+  markerColor = "green")
+}
+
+cta_icons<- function() {
+  awesomeIcons(
+    icon = 'ios-close',
+    iconColor = 'black',
+    library = 'ion',
+    markerColor = "blue"
+  )
+}
+
+tevi_icons <- function(tevibus){
+  awesomeIcons(
+    icon = tevibus$Icon,
+    iconColor = 'black',
+    library = 'fa',
+    markerColor = tevibus$Colour
+  )
+}
+```
+
+Page 1 Business Locations and Engagement 
+============================================================================================
+
+Column {.tabset}
+------------------------------------------------------------------------------------------------------------
+
+### Tevi Businesses
+```{r,context='data', include=FALSE}
+
+############################################
+# LOAD Business data and prepare for mapping
+############################################
+
+# Business data
+tevibus<- st_read(paste0(in.root,"tevibus.shp"))
+csawinners<-st_read(paste(in.root,"csawinners.shp",sep=""))
+cta2018<- st_read(paste0(in.root,"cta2018.shp"))
+st_crs(tevibus)<-st_crs(27700)
+st_crs(csawinners)<-st_crs(27700)
+st_crs(cta2018)<-st_crs(27700)
+
+```
+
+
+```{r,echo=FALSE,out.width='100%', fig.align='center'}
+
+# Create popup message
+tevi.popup<-paste("<b>",tevibus$Enterprise,"</b>","<br>","Sector: ",tevibus$Sector,"<br>","Tevi Status: ",tevibus$Status,"<br>","CSA Status:",tevibus$CSA_status) 
+
+teviplot<- prepare_sf_for_leaflet(tevibus)
+
+leaflet() %>% 
+  setView(lng = -4.9, lat = 50.4, zoom = 10)  %>%
+  addProviderTiles("OpenStreetMap.Mapnik") %>%
+  addScaleBar() %>%
+  addAwesomeMarkers(data=teviplot,
+                    icon=tevi_icons(teviplot),  
+                    label = ~as.character(Enterprise),
+                    popup = tevi.popup
+)
+
+
+```
