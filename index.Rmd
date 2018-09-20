@@ -64,15 +64,16 @@ tevi_icons <- function(tevibus){
 }
 ```
 
-Page 1 Business Locations and Engagement 
+Section 1 Business Locations and Engagement 
 ============================================================================================
+Businesses participating (as of September 2018) in the [Tevi](https://tevi.co.uk) programme, award winners of the [Cornwall Sustainability Awards](https://www.cornwallsustainabilityawards.org) (2004-17) and [Cornwall Tourism Awards](http://www.cornwalltourismawards.org.uk) (2018 only).
+
+
 
 Column {.tabset}
 ------------------------------------------------------------------------------------------------------------
 
-### Tevi Businesses
-
-Businesses participating (as of September 2018) in the [Tevi](https://tevi.co.uk) programme.
+### Map 1 Tevi Businesses
 
 ```{r,context='data', include=FALSE}
 
@@ -111,10 +112,7 @@ leaflet() %>%
 
 ```
 
-### Cornwall Sustainability and Tourism Award Winners
-
-
-Businesses are the winners of the [Cornwall Sustainability Awards](https://www.cornwallsustainabilityawards.org) (2004-17) and [Cornwall Tourism Awards](http://www.cornwalltourismawards.org.uk) (2018 only).
+### Map 2 Cornwall Sustainability and Tourism Award Winners
 
 ```{r,  echo=FALSE}
 # Create popup message
