@@ -15,7 +15,7 @@ $('.navbar-logo').wrap('<a href="http://www.sweep.ac.uk"> target=_blank');
 #   https://jrmosedale.github.io/dashboard/
 
 library(flexdashboard)
-
+library(bsselectR)
 library(raster)
 library(leaflet)
 library(magrittr)
@@ -26,12 +26,21 @@ library(rgdal)
 library(sf)
 library(units)
 library(leaflet.extras)
+library(htmlwidgets)
+library(zonator)
+library(RColorBrewer)
+
+#### iframe refs: https://stackoverflow.com/questions/15255858/set-the-iframe-height-automatically
+### https://stackoverflow.com/questions/44371799/how-can-i-insert-html-widget-objects-leaflet-map-or-html-table-in-an-html-mark
 
 ################################################
 # Directories
 ###############################################
 # if (Sys.getenv("HOME")=="/Users/jm622") in.root<-paste0(Sys.getenv("HOME"),"/OneDrive - University of Exeter/Rprojects/EG4B/app/")
 in.root<-"data/"
+dir_cna<-paste0(in.root,"cnamaps/")
+dir_ZProject<-paste0("/Volumes/Pocket_Sam/data/Zonation_Projects/Cornwall_Priority/")
+dir_zinputs<-"/Volumes/Pocket_Sam/data/Zonation_data/"
 
 ################################################
 # Load functions 
@@ -64,9 +73,27 @@ tevi_icons <- function(tevibus){
     markerColor = tevibus$Colour
   )
 }
+
+zero_to_NA<-function(r){
+  result<-calc(r,fun=function(x){ifelse(x==0,NA,x)})
+  return(result)
+}
+
+# Recalculating rank after masking
+rank_after_mask<-function(r,msk){
+  msk.cells<-getValues(mask(r,msk))
+  min.prot<-min(msk.cells,na.rm=TRUE)
+  # num.prot<-length(msk.cells[-which(is.na(msk.cells))])
+  rem.cells<-getValues(mask(r,msk,inverse=TRUE))
+  max.rem<-max(rem.cells,na.rm=TRUE)
+  new.ranks<-(rem.cells/max.rem)*1
+  new.r<-setValues(r,new.ranks)
+  return(new.r)
+}
+
 ```
 
-Section 1 Business Locations and Engagement 
+A. Business Locations and Engagement 
 ============================================================================================
 Businesses participating (as of September 2018) in the [Tevi](https://tevi.co.uk) programme, award winners of the [Cornwall Sustainability Awards](https://www.cornwallsustainabilityawards.org) (2004-17) and [Cornwall Tourism Awards](http://www.cornwalltourismawards.org.uk) (2018 only).
 Click on marker for further information.
@@ -75,7 +102,6 @@ Click on marker for further information.
 
 Column {.tabset}
 ------------------------------------------------------------------------------------------------------------
-
 ### Map 1 Tevi Businesses
 
 ```{r,context='data', include=FALSE}
@@ -145,4 +171,125 @@ hideGroup(c("CTA businesses"))
 
 
 ```
+
+B. Habitats & Ecosystem Services 
+============================================================================================
+
+
+Column {.tabset}
+------------------------------------------------------------------------------------------------------------
+
+### Map 1 Habitats
+
+```{r,context='data', include=FALSE}
+
+############################################
+# LOAD Habitat and Service data and prepare for mapping
+############################################
+
+# Landcover data
+landcover.r<-raster(paste0(in.root,"domcover.tif"))
+urban.r<-calc(landcover.r,fun=function(x){ifelse(x>19,1,NA)})
+arable.r<-calc(landcover.r,fun=function(x){ifelse(x==3,1,NA)})
+improvgrass.r<-calc(landcover.r,fun=function(x){ifelse(x==4,1,NA)})
+
+# Priority habitats
+priority.r<-zero_to_NA(raster(paste0(in.root,"priority_habitat.tif")))
+
+# Protected areas
+#protected.r<-
+#st_crs(protected.r)<-st_crs(27700)
+
+
+```
+
+
+```{r,  echo=FALSE}
+leaflet() %>% 
+  setView(lng = -4.9, lat = 50.4, zoom = 10)  %>%
+  addProviderTiles("OpenStreetMap.Mapnik") %>%
+  addScaleBar() %>%
+  addRasterImage(urban.r,color="black", 
+               opacity = 0.7,project=TRUE,group="Urban") %>%
+  addRasterImage(arable.r,color="brown", 
+                 opacity = 0.7,project=TRUE,group="Arable") %>%
+  addRasterImage(improvgrass.r,color="green", 
+                 opacity = 0.7,project=TRUE,group="Improved_Grass") %>%
+  addRasterImage(priority.r,color="purple", 
+                 opacity = 0.7,project=TRUE,group="Priority_habitats") %>%
+  # addRasterImage(protected.r,color="yellow", 
+  #               opacity = 0.7,project=TRUE,group="Protected_areas") %>%
+  addLayersControl(
+    overlayGroups =c("Urban", "Arable","Improved_Grass","Priority_habitats","Protected_areas"),
+    options = layersControlOptions(collapsed=FALSE)  ) %>%
+  hideGroup(c("Arable","Improved_Grass","Priority_habitats","Protected_areas"))
+```
+
+### Map 2 Services
+
+### Explanatory notes
+Some sort of explanation and/or legend could be placed here, perhaps including links to a methodology document etc?
+
+
+C. Opportunities 
+============================================================================================
+
+Column {.tabset}
+------------------------------------------------------------------------------------------------------------
+
+### New protection areas
+
+```{r, echo=FALSE}
+
+opp.map1.filername<-paste0("maps/","opps/opp_nogo_map.html")
+
+htmltools::tags$iframe(src = opp.map1.filername, frameborder="0", style="overflow: hidden; height: 100%; width: 100%; position: absolute;")
+```
+
+### Woodland creation
+
+D. Area maps
+============================================================================================
+
+Column {.tabset}
+------------------------------------------------------------------------------------------------------------
+
+### Community Network Areas
+
+```{r,context='data', include=FALSE}
+
+############################################
+# LOAD Community network areas
+############################################
+
+# Create list of files names
+cna.shp<-st_read(paste0(in.root,"community_network_areas.shp"))
+st_crs(cna.shp)<-st_crs(27700)
+cna.shp<-st_transform(cna.shp,4326)
+cna.names<-paste0(cna.shp$NAME)
+cna.names<-sort(cna.names)
+
+cna.list<-list.files("maps/")
+cna.list<-sort(cna.list)
+cna.list<-paste0("maps/",cna.list)
+names(cna.list)<-cna.names
+
+```
+
+```{r,  echo=FALSE}
+
+bsselect(cna.list, type = "iframe")
+
+```
+
+
+### Parishes
+
+
+### Catchments
+
+
+### Explanatory notes
+Some sort of explanation and/or legend could be placed here, perhaps including links to a methodology document etc?
+
 
