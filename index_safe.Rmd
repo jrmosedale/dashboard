@@ -11,6 +11,7 @@ $('.navbar-logo').wrap('<a href="http://www.sweep.ac.uk"> target=_blank');
 </script>
 
 ```{r, setup, include=FALSE}
+##### TO render whole site run line command:
 #   rmarkdown::render_site()
 #   https://jrmosedale.github.io/dashboard/
 
