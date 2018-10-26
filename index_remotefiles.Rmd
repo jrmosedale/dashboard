@@ -227,14 +227,6 @@ leaflet() %>%
 ```
 
 ### Map 2 Services
-SOme of the key ecosystem service and associated layers are detailed below.
-```{r,context='data', include=FALSE}
-```
-
-```{r,  echo=FALSE}
-
-```
-
 
 ### Explanatory notes
 Some sort of explanation and/or legend could be placed here, perhaps including links to a methodology document etc?
@@ -256,14 +248,6 @@ htmltools::tags$iframe(src = opp.map1.filername, frameborder="0", style="overflo
 ```
 
 ### Woodland creation
-
-```{r, echo=FALSE}
-
-opp.map1.filername<-paste0("maps/","opps/opp_woodland_map.html")
-
-htmltools::tags$iframe(src = opp.map1.filername, frameborder="0", style="overflow: hidden; height: 100%; width: 100%; position: absolute;")
-```
-
 
 D. Area maps
 ============================================================================================
