@@ -59,12 +59,14 @@ dir_ZProject<-"D:/Zonation_Projects/Cornwall_Woodland/"
 # or if on portable drive
 dir_ZProject<-paste0("/Volumes/Pocket_Sam/data/Zonation_Projects/Cornwall_Woodland/")
 
-dir_zinputs<-"/Volumes/Pocket_Sam/data/Zonation_data/"
+dir_zinputs<-"/Volumes/Pocket_Sam/data/Zonation_data_opps/"
+dir_zinputs2<-"/Volumes/Pocket_Sam/data/Zonation_data/"
+
 ###############################################################
 ### CHOOSE VARIANT ###
 ###############################################################
 
-v<-"v15" # Applies connectivity matrix
+v<-"v06" # Applies connectivity matrix
 
 
 ###############################################################
@@ -72,12 +74,24 @@ v<-"v15" # Applies connectivity matrix
 ###############################################################
 # RANKING MAP
 # RANKING MAP
-r<-raster(paste0(dir_ZProject,v,"/",v,"_out/",v,"_output.ABF_MBLP10.rank.compressed.tif"))
+r<-raster(paste0(dir_ZProject,v,"/",v,"_out/",v,"_output.ABF_MEBLP10.rank.compressed.tif"))
 plot(r,breaks=leg$values, col=leg$colors, main=v)
 
+# Data layers etc 
+cornwall.r<-raster(paste0(dir_zinputs,"cornwall_LT.tif"))
+protected.r<-raster(paste0(dir_zinputs,"protected_mask.tif"))
+protected.r<-mask(protected.r,cornwall.r)
+
+woods1<-raster(paste0(dir_zinputs2,"habitat_110.tif"))
+woods2<-raster(paste0(dir_zinputs2,"habitat_120.tif"))
+woods.r<-overlay(woods1,woods2,fun=function(x,y){ifelse(is.na(x)&is.na(y),NA,1)})
+
+plot(protected.r)
+plot(mask(r,protected.r,inverse=TRUE),breaks=leg$values, col=leg$colors)
+priority.r<-raster(paste0(dir_zinputs,"desig_priority.tif"))
 
 # Masking - woodland
-excluded.r<-raster(paste0(dir_zopp,"mask_excluded.tif"))
+excluded.r<-raster(paste0(dir_zinputs,"mask_excluded.tif"))
 new.r<-rank_after_mask(r,excluded.r)
 
 
@@ -102,12 +116,13 @@ plot(toprank20,add=T,col="brown")
 zmap<-leaflet() %>% addTiles() %>%
   addRasterImage(zero_to_NA(excluded.r), colors = "grey", opacity = 0.7,group="Excluded") %>%
   addRasterImage(protected.r, colors = "blue", opacity = 0.7,group="Protected areas") %>%
-  addRasterImage(zero_to_NA(woods.r),colors="green",opacity=0.7,group="EXisting woods") %>%
+  addRasterImage(zero_to_NA(woods.r),colors="green",opacity=0.7,group="Existing woods") %>%
   addRasterImage(toprank5, colors = "red", opacity = 0.7,group="Top 5%") %>%
   addRasterImage(toprank10, colors = "orange", opacity = 0.7,group="Top 10%") %>%
   addRasterImage(toprank20, colors = "brown", opacity = 0.7,group="Top 20%") %>%
-  addLayersControl(overlayGroups = c("Excluded","Protected areas","EXisting woods","Top 5%","Top 10%","Top 20%"),
-                   options = layersControlOptions(collapsed=FALSE) )
+  addLayersControl(overlayGroups = c("Excluded","Protected areas","Existing woods","Top 5%","Top 10%","Top 20%"),
+                   options = layersControlOptions(collapsed=FALSE) ) %>%
+  hideGroup(c("Protected areas","Existing woods","Top 20%"))
 
 
 

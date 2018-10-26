@@ -229,10 +229,24 @@ leaflet() %>%
 ### Map 2 Services
 SOme of the key ecosystem service and associated layers are detailed below.
 ```{r,context='data', include=FALSE}
+# Soil erosion risk
+rusle.current<-raster(paste0(in.root,"RUSLE_current.tif"))
+crs(rusle.current)<- CRS('+init=EPSG:27700')
+
 ```
 
 ```{r,  echo=FALSE}
 
+
+leaflet() %>% 
+  setView(lng = -4.9, lat = 50.4, zoom = 10)  %>%
+  addProviderTiles("OpenStreetMap.Mapnik") %>%
+  addScaleBar() %>%
+  addRasterImage(rusle.current,
+               opacity = 0.8,project=TRUE, group="Soil_erosion_risk") %>%
+  addLayersControl(
+    overlayGroups =c("Soil_erosion_risk"),
+    options = layersControlOptions(collapsed=FALSE)  ) 
 ```
 
 

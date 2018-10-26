@@ -64,14 +64,14 @@ dir_zinputs<-"/Volumes/Pocket_Sam/data/Zonation_data/"
 ### CHOOSE VARIANT ###
 ###############################################################
 
-v<-"v15" # Applies connectivity matrix
+v<-"v17" # Applies connectivity matrix
 
 
 ###############################################################
 # Analyse Variant Results
 ###############################################################
 # RANKING MAP
-r<-raster(paste0(dir_ZProject,v,"/",v,"_out/",v,"_output.ABF_MBLP10.rank.compressed.tif"))
+r<-raster(paste0(dir_ZProject,v,"/",v,"_out/",v,"_output.ABF_MEBLP10.rank.compressed.tif"))
 #plot(r,breaks=leg$values, col=leg$colors, main=v)
 
 # Masking - priority
@@ -113,7 +113,7 @@ zmap<-leaflet() %>%
   addRasterImage(toprank20, colors = "brown", opacity = 0.7,group="Top 20%") %>%
   addLayersControl(overlayGroups = c("Protected areas","Priority habitats", "County Wildlife Sites","Top 5%","Top 10%","Top 20%"),
                    options = layersControlOptions(collapsed=FALSE) ) %>% 
-  hideGroup(c("Priority habitats", "County Wildlife Sites"))
+  hideGroup(c("Priority habitats", "County Wildlife Sites","Top 20%"))
 
 filename<-paste0(getwd(),"/maps/opps/opp_nogo_map.html")
 print(filename)
