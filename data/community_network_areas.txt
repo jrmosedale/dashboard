@@ -1,0 +1,66 @@
+                              Metadragon v3 TXT Report
+
+Report Created : 17/10/2017
+Last Update Date : 17/10/2017
+---------------------------------------------------------------------------------
+
+Title : Community Network Areas
+
+Alternative Titles : CNA
+                     CNAs
+
+Originators : Cornwall Council
+
+Abstract : The purpose of the 19 community network areas is to:
+
+involve local communities in improving local services; 
+identify, agree and then deliver local priorities; 
+enable local councillors to have more influence over the delivery of services to the communities they represent; and 
+enable communities to make choices about the way in which services are delivered in their areas. 
+
+They have been created from parish and town council areas.
+
+Fields:
+NAME - name of CNA
+MEMBERS - No. of councillors in the CNA
+LINK  - hyperlink to relevant page on Cornwall Council website
+PROFLINK - hyperlink to pdf of Community Network profile created by Community Intelligence team
+
+
+Topic Category : Boundaries
+
+Subject : administrative boundaries
+
+Dataset Language : English
+
+Capture End Date: 2010-05-21
+
+Dataset Reference Date: 2017-10-17
+
+Frequency of Update : As Needed
+
+Geographic Identifiers : CORNWALL
+
+Data Format : ESRI shapefile
+
+Spatial Reference System : National Grid of Great Britain
+
+Distributor : Contact Title : Mr
+                            Name : Rob Andrew
+               Postal Address : Room 4S
+New County Hall
+Treyew Road
+Truro
+
+                       Postcode : TR1 3AY
+                                Tel : 07968 892450
+                               Fax : 
+                            Email : randrew@cornwall.gov.uk
+                             Web : 
+                               Ext : 504239
+
+Path : \\cc\root\Corporate\GIS\data\published\government_politics_and_public_administration\local_government\councils\unitary_authorities\community_network_areas
+
+Number Of Features : 0
+
+Size : 0

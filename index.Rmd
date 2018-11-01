@@ -125,7 +125,7 @@ st_crs(cta2018)<-st_crs(27700)
 ```{r,echo=FALSE,out.width='100%', fig.align='center'}
 
 # Create popup message
-tevi.popup<-paste("<b>",tevibus$Enterprise,"</b>","<br>","Sector: ",tevibus$Sector,"<br>","Tevi Status: ",tevibus$Status,"<br>","CSA Status:",tevibus$CSA_status) 
+tevi.popup<-paste("<b>",tevibus$Enterprise,"</b>","<br>","Sector: ",tevibus$Sector,"<br>","Tevi Status: ",tevibus$Status,"<br>") 
 
 teviplot<- prepare_sf_for_leaflet(tevibus)
 
@@ -288,6 +288,10 @@ Column {.tabset}
 ### Community Network Areas
 
 ```{r,context='data', include=FALSE}
+############################################
+# LOAD Parish areas
+############################################
+
 
 ############################################
 # LOAD Community network areas
