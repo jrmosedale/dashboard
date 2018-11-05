@@ -217,7 +217,82 @@ leaflet(prepare_sf_for_leaflet(tevibus[which(tevibus$NAME==parish$NAME),])) %>%
  
   
   
+################
+# Test raster colour scale (eg for ecosystem services)
+###################
+r<-raster(paste0(dir_hydrology,"RUSLE_current.tif"))
+r2<-raster(paste0(dir_zinputs,"ecoservice_pollination.tif"))
+r3<-raster(paste0(dir_zinputs,"ecoservice_drinkingwater1.tif"))
+
+
+#crs(r)<-
+# Set colour scheme according to variable mapped
+# mnmx = 2 element array holding min and max
+mapcolour <- function(var,r) {
+  if (class(r)[1]=="RasterLayer") r<-getValues(r)
+  q<-quantile(r,c(0,0.01,0.05,0.1,0.2,0.4,0.6,0.8,0.9,0.95,0.99,1),names=FALSE,na.rm=TRUE)
+  mnmx<-c(min(q),max(q)) # or could be added as parameter
+  switch(var,
+         "abovecarbon" = colorBin("YlOrRd",domain=round(mnmx),bins=unique(round(q)),pretty=TRUE,na.color=TRUE) ,
+         "floodmitig"=colorBin("PuBuGn",domain=round(mnmx),bins=unique(round(q)),pretty=TRUE,na.color=NA),
+         "aquamitig"=colorBin("PRGn",domain=round(mnmx),bins=unique(round(q)),pretty=TRUE,na.color=NA),
+         "drinkmitig"=colorBin("BuGn",domain=round(mnmx),bins=unique(round(q)),pretty=TRUE,na.color=NA),
+         "soilmitig" = colorBin("YlOrRd",domain=round(mnmx),bins=unique(round(q)),pretty=TRUE,na.color=NA),
+         "pollination" = colorBin(c("blue","green"),domain=round(mnmx),bins=unique(round(q)),pretty=TRUE,na.color=NA),
+        # "t20_gsdays"= colorBin(c("white","red"),domain=round(mnmx),bins=unique(round(q)),pretty=TRUE),
+        # "t25_gsdays"= colorBin(c("white","red"),domain=round(mnmx),bins=unique(round(q)),pretty=TRUE),
+        # "t30_gsdays"= colorBin(c("white","red"),domain=round(mnmx),bins=unique(round(q)),pretty=TRUE),
+        # "lastspfr_doy"=colorBin("Blues",domain=round(mnmx),bins=unique(round(q)),pretty=TRUE) ,
+        # "firstautfr_doy"=colorBin("Blues",domain=round(mnmx),bins=unique(round(q)),pretty=TRUE),
+        # "frostfree_days"=colorBin("BuGn",domain=round(mnmx),bins=unique(round(q)),pretty=TRUE),
+        # "fl_tmean"=colorBin("YlOrRd",domain=round(mnmx),bins=unique(round(q)),pretty=TRUE),
+        # "fl_numday"=colorBin("Greens",domain=round(mnmx),bins=unique(round(q)),pretty=TRUE),
+        # "elevation"=colorBin(c("blue","green"),domain=c(round((floor(mnmx[1])/10)*10),round((ceiling(mnmx[2])/10)*10)),bins=unique(round(ceiling(q)/10)*10),pretty=TRUE),
+        # "slope"=colorBin("Purples",domain=round(mnmx),bins=c(0,1,2,4,8,12,16,20,24,28,mnmx[2]),pretty=TRUE),
+        # "gdd10_gs" = colorBin("YlOrRd",domain=c(round((floor(mnmx[1])/100)*100),round((ceiling(mnmx[2])/100)*100)),bins=unique(round(ceiling(q)/100)*100),pretty=TRUE),
+        # "gdd5_gs" = colorBin("YlOrRd",domain=c(round((floor(mnmx[1])/100)*100),round((ceiling(mnmx[2])/100)*100)),bins=unique(round(ceiling(q)/100)*100),pretty=TRUE) ,
+         "aspect"=colorBin("PRGn",domain=c(round((floor(mnmx[1])/10)*10),round((ceiling(mnmx[2])/10)*10)),bins=unique(round(ceiling(q)/10)*10),pretty=TRUE) 
+  )
+} # mapcolour
+
+
+v<-getValues(r)
+palette<-mapcolour("soil_erosion",v)
+v2<-getValues(r2)
+palette2<-mapcolour("pollination",v2)
+
+leaflet() %>% 
+  setView(lng = -4.9, lat = 50.4, zoom = 10)  %>%
+  addProviderTiles("OpenStreetMap.Mapnik") %>%
+  addScaleBar() %>%
+  addRasterImage(r, colors = palette,
+                 opacity = 0.7,project=TRUE,group="Soil_erosion") %>%
+  addRasterImage(r2, colors = palette2,
+                 opacity = 0.7,project=TRUE,group="Pollination") %>%
+  addLegend(position = "bottomright",
+            pal=palette,values=v,
+            group="Soil_erosion",
+            opacity=1) %>%
+  addLegend(position = "bottomright",
+            pal=palette2,values=v2,
+            group="Pollination",
+            opacity=1) %>%
+  addLayersControl(
+   overlayGroups =c("Soil_erosion","Pollination"),
+    options = layersControlOptions(collapsed=FALSE)  ) %>%
+  hideGroup("Pollination")
+
   
+
+  
+
+
+
+
+
+
+
+
     addRasterImage(arable.r,color="brown", 
                  opacity = 0.7,project=TRUE,group="Arable") %>%
   addRasterImage(improvgrass.r,color="green", 

@@ -73,3 +73,32 @@ fillraster_from_sf<-function(sf_object,r_template,r_value){
   #plot(new_r)
   return(new_r)
 }
+
+# FUNCTION mapcolour
+# Creates quantile palette of colours dependent on variable name
+# Parameters
+# var = Variable name
+# r = rasterlayer or vector of values
+mapcolour <- function(var,r) {
+  if (class(r)[1]=="RasterLayer") r<-getValues(r)
+  q<-quantile(r,c(0,0.05,0.1,0.2,0.4,0.6,0.8,0.9,0.95,1),names=FALSE,na.rm=TRUE)
+  mnmx<-c(min(q),max(q)) # or could be added as parameter
+  switch(var,
+         "abovecarbon" =colorBin("YlOrRd",domain=round(mnmx),bins=unique(round(q)),pretty=TRUE,na.color=NA) ,
+         "floodmitig"=colorBin("PuBuGn",domain=round(mnmx),bins=unique(round(q)),pretty=TRUE,na.color=NA),
+         "aquaqual"=colorBin("BuGn",domain=round(mnmx),bins=unique(round(q)),pretty=TRUE,na.color=NA),
+         "bathqual"=colorBin("BuGn",domain=round(mnmx),bins=unique(round(q)),pretty=TRUE,na.color=NA),
+         "drinkqual"=colorBin("BuGn",domain=round(mnmx),bins=unique(round(q)),pretty=TRUE,na.color=NA),
+         "soilmitig"=colorBin("YlOrBr",domain=round(mnmx),bins=unique(round(q)),pretty=TRUE,na.color=NA),
+         "pollination" =colorBin(c("YlOrRd"),domain=round(mnmx),bins=unique(round(q)),pretty=TRUE,na.color=NA),
+         # "t25_gsdays"= colorBin(c("white","red"),domain=round(mnmx),bins=unique(round(q)),pretty=TRUE),
+         # "firstautfr_doy"=colorBin("Blues",domain=round(mnmx),bins=unique(round(q)),pretty=TRUE),
+         # "frostfree_days"=colorBin("BuGn",domain=round(mnmx),bins=unique(round(q)),pretty=TRUE),
+         # "fl_numday"=colorBin("Greens",domain=round(mnmx),bins=unique(round(q)),pretty=TRUE),
+         # "elevation"=colorBin(c("blue","green"),domain=c(round((floor(mnmx[1])/10)*10),round((ceiling(mnmx[2])/10)*10)),bins=unique(round(ceiling(q)/10)*10),pretty=TRUE),
+         # "slope"=colorBin("Purples",domain=round(mnmx),bins=c(0,1,2,4,8,12,16,20,24,28,mnmx[2]),pretty=TRUE),
+         # "gdd5_gs" = colorBin("YlOrRd",domain=c(round((floor(mnmx[1])/100)*100),round((ceiling(mnmx[2])/100)*100)),bins=unique(round(ceiling(q)/100)*100),pretty=TRUE) ,
+         "aspect"=colorBin("PRGn",domain=c(round((floor(mnmx[1])/10)*10),round((ceiling(mnmx[2])/10)*10)),bins=unique(round(ceiling(q)/10)*10),pretty=TRUE) 
+  )
+} # mapcolour
+

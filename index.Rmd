@@ -227,11 +227,54 @@ leaflet() %>%
 ```
 
 ### Map 2 Services
-SOme of the key ecosystem service and associated layers are detailed below.
+Key ecosystem service and associated layers are detailed below.
 ```{r,context='data', include=FALSE}
-# Soil erosion risk
-rusle.current<-raster(paste0(in.root,"RUSLE_current.tif"))
-crs(rusle.current)<- CRS('+init=EPSG:27700')
+
+# Load service rasters and determine palette for each
+
+# Soil loss mitigation
+soilmitig.r<-raster(paste0(in.root,"ecoservices/ecoservice_soillossmitig_current.tif"))
+crs(soilmitig.r)<- CRS('+init=EPSG:27700')
+soilmitig.vals<-getValues(soilmitig.r)
+soilmitig.pal<-mapcolour("soilmitig",soilmitig.vals)
+
+# Aboveground carbon 
+abovecarbon.r<-raster(paste0(in.root,"ecoservices/ecoservice_aboveground_carbon.tif"))
+crs(abovecarbon.r)<- CRS('+init=EPSG:27700')
+abovecarbon.vals<-getValues(abovecarbon.r)
+abovecarbon.pal<-mapcolour("abovecarbon",abovecarbon.vals)
+
+# Pollination 
+pollination.r<-raster(paste0(in.root,"ecoservices/ecoservice_pollination.tif"))
+crs(pollination.r)<- CRS('+init=EPSG:27700')
+pollination.vals<-getValues(pollination.r)
+pollination.pal<-mapcolour("abovecarbon",pollination.vals)
+
+# Flood mitigation
+floodmitig.r<-raster(paste0(in.root,"ecoservices/ecoservice_floodmitig.tif"))
+crs(floodmitig.r)<- CRS('+init=EPSG:27700')
+floodmitig.vals<-getValues(floodmitig.r)
+floodmitig.pal<-mapcolour("floodmitig",floodmitig.vals)
+
+# Drinking water quality
+drinkqual.r<-raster(paste0(in.root,"ecoservices/ecoservice_drinkingwater1.tif"))
+crs(drinkqual.r)<- CRS('+init=EPSG:27700')
+drinkqual.vals<-getValues(drinkqual.r)
+drinkqual.pal<-mapcolour("drinkqual",drinkqual.vals)
+
+# Aquaculture water quality
+aquaqual.r<-raster(paste0(in.root,"ecoservices/ecoservice_aquaculture.tif"))
+crs(aquaqual.r)<- CRS('+init=EPSG:27700')
+aquaqual.vals<-getValues(aquaqual.r)
+aquaqual.pal<-mapcolour("aquaqual",aquaqual.vals)
+
+# Bathing water quality 
+bathqual.r<-raster(paste0(in.root,"ecoservices/ecoservice_bathingwater.tif"))
+crs(bathqual.r)<- CRS('+init=EPSG:27700')
+bathqual.vals<-getValues(bathqual.r)
+bathqual.pal<-mapcolour("bathqual",bathqual.vals)
+
+
 
 ```
 
@@ -242,11 +285,51 @@ leaflet() %>%
   setView(lng = -4.9, lat = 50.4, zoom = 10)  %>%
   addProviderTiles("OpenStreetMap.Mapnik") %>%
   addScaleBar() %>%
-  addRasterImage(rusle.current,
-               opacity = 0.8,project=TRUE, group="Soil_erosion_risk") %>%
+  addRasterImage(abovecarbon.r, colors=abovecarbon.pal,
+               opacity = 0.8,project=TRUE, group="Aboveground_carbon") %>%
+  addRasterImage(pollination.r, colors=pollination.pal,
+               opacity = 0.8,project=TRUE, group="Pollination") %>%
+  addRasterImage(soilmitig.r, colors=soilmitig.pal,
+               opacity = 0.8,project=TRUE, group="Soil_loss_mitigation") %>%
+  addRasterImage(floodmitig.r, colors=floodmitig.pal,
+               opacity = 0.8,project=TRUE, group="Flood_mitigation") %>%
+  addRasterImage(drinkqual.r, colors=drinkqual.pal,
+               opacity = 0.8,project=TRUE, group="Drinking_water") %>%
+  addRasterImage(aquaqual.r, colors=aquaqual.pal,
+               opacity = 0.8,project=TRUE, group="Aquaculture") %>%
+  addRasterImage(bathqual.r, colors=bathqual.pal,
+               opacity = 0.8,project=TRUE, group="Bathing_water") %>%
+
+   addLegend(position = "bottomright",
+            pal=abovecarbon.pal, values=abovecarbon.vals,
+            group="Aboveground_carbon", opacity=1) %>%
+   addLegend(position = "bottomright",
+            pal=pollination.pal, values=pollination.vals,
+            group="Pollination", opacity=1) %>%
+   addLegend(position = "bottomright",
+            pal=soilmitig.pal, values=soilmitig.vals,
+            group="Soil_loss_mitigation", opacity=1) %>%
+   addLegend(position = "bottomright",
+            pal=floodmitig.pal, values=floodmitig.vals,
+            group="Flood_mitigation", opacity=1) %>%
+   addLegend(position = "bottomright",
+            pal=drinkqual.pal, values=drinkqual.vals,
+            group="Drinking_water", opacity=1) %>%
+   addLegend(position = "bottomright",
+            pal=aquaqual.pal, values=aquaqual.vals,
+            group="Aquaculture", opacity=1) %>%
+   addLegend(position = "bottomright",
+            pal=bathqual.pal, values=bathqual.vals,
+            group="Bathing_water", opacity=1) %>%
+  
   addLayersControl(
-    overlayGroups =c("Soil_erosion_risk"),
-    options = layersControlOptions(collapsed=FALSE)  ) 
+    overlayGroups =c("Aboveground_carbon","Pollination","Soil_loss_mitigation",
+                     "Flood_mitigation","Drinking_water","Aquaculture","Bathing_water"),
+    options = layersControlOptions(collapsed=FALSE)  )  %>%
+  
+  hideGroup(c("Pollination","Soil_loss_mitigation",
+             "Flood_mitigation","Drinking_water","Aquaculture","Bathing_water"))
+
 ```
 
 
