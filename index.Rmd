@@ -15,6 +15,8 @@ $('.navbar-logo').wrap('<a href="http://www.sweep.ac.uk"> target=_blank');
 #   rmarkdown::render_site()
 #   https://jrmosedale.github.io/dashboard/
 
+# Linking multiple Rmd files - usew either bookdown or child files - reF:https://stackoverflow.com/questions/25824795/how-to-combine-two-rmarkdown-rmd-files-into-a-single-output
+
 library(flexdashboard)
 library(bsselectR)
 library(raster)
@@ -361,7 +363,12 @@ opp.map1.filername<-paste0("maps/","opps/opp_woodland_map.html")
 htmltools::tags$iframe(src = opp.map1.filername, frameborder="0", style="overflow: hidden; height: 100%; width: 100%; position: absolute;")
 ```
 
-### Method notes  
+### Method notes
+```{r child = 'PRIORITYMAP_1.Rmd'}
+```
+
+### Old Method notes  
+
 #### Mapping of environmental assets for Cornwall  
   
 **Purpose**  
@@ -391,6 +398,20 @@ The rankings assigned to a grid cell are not independent. The reasons for this a
 **Important limitations:**  
    • The value of ecosystem services provided are based upon the current distribution of ecosystem services, habitats and service ‘demand’ factors such as populations and key activities like aquaculture.    
    • Current outputs do not consider future demand for services (which might be created for example, by future building developments impacting the demand for ecosystem services).  
+   
+   
+#### Woodland Opportunity Mapping 
+  
+**Approach and logic **  
+  
+i.	Identify all areas not to consider for woodland creation but which should be preserved to be included in connectivity benefits (ie existing woodland, priority habitats) – see Maintain areas table.  
+ii.	Treat all remaining areas as potential woodland creation areas.  
+iii.	Apply -ve weighting for likely constraints on opportunity (built up areas, High grade agricultural land, topographical constraints) to exclude early in process – see Constraints table.   
+iv.	Calculate “benefits” layers as if already woodland and weight positively (e.g. ecosystem services potentially provided flood mitigation, water quality benefits…).  
+v.	Identify facilitating factors for converting to woodland from existing landcover and weight positively (land ownership, river banks?).  
+vi.	Prioritize “woodland creation opportunities” through zonation method and keep highest priority areas. Will generally value areas with multiple benefits (eg connectivity and flood mitigation benefit).  
+
+
 
 D. Area maps
 ============================================================================================

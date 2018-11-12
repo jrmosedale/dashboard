@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">TeviHub</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div id="mapping-of-environmental-assets-for-cornwall" class="section level4">
+<h4>Mapping of environmental assets for Cornwall</h4>
+<p><strong>Purpose</strong><br />
+The purpose is to generate strategic prioritization maps of existing environmental ‘assets’ across mainland Cornwall. High priority areas correspond to those areas where current habitats, and the ecosystem services they provide, merit protection from any development or change in land use that will undermine these assets.<br />
+A further goal of the methodology is to be able to experiment with, and demonstrate, key factors affecting prioritizations. Therefore, the approach is shaped around an methodology which can be readily modified and which allows easy updating/replacement of source data layers or adjustments to the perceived importance of different services, and which can be applied to different spatial areas and resolutions.</p>
+<p><strong>Factors determining prioritization</strong><br />
+Initial approach will prioritize areas based on:</p>
+<ul>
+<li>Existing habitat and/or land cover type<br />
+</li>
+<li>Habitat distribution and connectivity<br />
+</li>
+<li>Species presence distributions (if suitable data available) or area designations based on their biodiversity value (e.g. County wildlife sites)<br />
+</li>
+<li>Key ecosystem service provision</li>
+</ul>
+<p><strong>Additional factors that can be accounted for include:</strong></p>
+<ul>
+<li>Suitability for other land uses such as agricultural grae, proximity to built-up areas.<br />
+</li>
+<li>Facilitating factors such as non-statutory designations, land ownership, and landscape characteristics.</li>
+</ul>
+<p>The methodology assigns highest prioritization/ranking to statutory protected areas such as SSSI’s, local and national nature reserves, SACs, SPAs).</p>
+<p>The rankings assigned to a grid cell are not independent. The reasons for this are driven by the need to account for habitat connectivity. There is no value to only ‘partly’ protecting or planting a corridor that links existing habitats – therefore the value of each ‘cell’ along the corridor depends on the habitat of the whole corridor being maintained. In terms of the prioritization maps this means that the ranking of a cell assumes that all other cells of an equal or greater ranking are prioritized.</p>
+<p><strong>Other methodology notes</strong></p>
+<ul>
+<li>Initial prioritization scale = 100 metres (will add finer spatial resolution mapping if deemed desirable &amp; feasible).<br />
+</li>
+<li>Zonation software will be applied to determine the prioritization – a system that that been widely used for land use and conservation planning and allows the iterative adjustment of underlying parameters such as relative weighting of different factors.<br />
+</li>
+<li>The connectivity of protected areas is accounted for in the way prioritizations are calculated within Zonation.</li>
+</ul>
+<p><strong>Important limitations:</strong></p>
+<ul>
+<li>The value of ecosystem services provided are based upon the current distribution of ecosystem services, habitats and service ‘demand’ factors such as populations and key activities like aquaculture.<br />
+</li>
+<li>Current outputs do not consider future demand for services (which might be created for example, by future building developments impacting the demand for ecosystem services).</li>
+</ul>
+<div id="steps-and-notes-on-data-requirements" class="section level5">
+<h5>Steps and notes on data requirements</h5>
+<p><strong>1. Define area for prioritization</strong><br />
+Initial focus on prioritization for whole of Cornwall mainland, but can later be applied to:</p>
+<ul>
+<li>AONB area only<br />
+</li>
+<li>Single Catchment eg Fowey<br />
+</li>
+<li>Single Neighbourhood<br />
+</li>
+<li>Balancing different prioritization scales e.g. neighbourhood and county prioritizations.</li>
+</ul>
+<p><strong>2. Define irreplaceable habitats &amp; existing protected areas:</strong></p>
+<ul>
+<li>Existing designated areas - SSSIs (condition), SAC, SPA, local reserves, County Wildlife sites, National marine conversation zones<br />
+</li>
+<li>Option of defining other irreplaceable/critical habitats through habitat data.</li>
+</ul>
+<p><strong>3. Biodiversity importance</strong><br />
+Data layers describing the distribution of habitats and (if available) species. The relative importance of different habitats will be represented through a weighting system.</p>
+<ul>
+<li>Habitat data
+<ul>
+<li>Landcover/ habitat distribution (CEH landcover, Nat England Priority habitat – later to include Sentinel derived landcover data)<br />
+</li>
+<li>Condition data if/when available (initially assume constant unless suitable data identified)<br />
+</li>
+<li>Linear features layers such as river banks, hedgerows (ERCCIS data)<br />
+</li>
+<li>Fragmentation/Connectivity – is integrated into the Zonation methodology but there is also the option of explicitly generating layers describing connectivity through various indices/methods.<br />
+</li>
+</ul></li>
+<li>Non-statutory designations based on biodiversity value.<br />
+</li>
+<li>Areas defined as County wildlife sites (ERCCIS data).</li>
+</ul>
+<p><strong>NB:</strong> New landcover/habitat data for Cornwall will replace the data mentioned above during 2019.</p>
+<p><strong>4. Ecosystem services</strong><br />
+Initially only a small subset of services likely to be explicitly included:</p>
+<ul>
+<li>Soil erosion<br />
+</li>
+<li>Flood mitigation<br />
+</li>
+<li>Water quality (for drinking, bathing and aquaculture waters)<br />
+</li>
+<li>Carbon storage<br />
+</li>
+<li>Pollination<br />
+List can be expanded as and when suitable methods are developed.<br />
+There are methodological challenges – particularly in capturing the ‘demand’ for services eg impacts of floods, pollinator requirements of agriculture, accessibility of services (see below) etc.<br />
+As with habitat and species data, weighting can be applied to describe the relative importance ascribed to different ecosystem services.</li>
+</ul>
+<p><strong>5. Integrating accessibility as a factor in service provision (not yet implemented)</strong> The provision of some ecosystem services depends on access / visitation to greenspace including a range of cultural/recreational/health benefits.<br />
+Some simple options to integrate might be:</p>
+<ul>
+<li>Weighting according to size of nearby resident population (which will favour protected areas close to population centres).<br />
+</li>
+<li>Balancing prioritizations at different spatial scales (which will favour wider distribution of no-go areas).<br />
+</li>
+<li>Footpaths/hedgerows – possess habitat corridor value</li>
+</ul>
+<p><strong>6. Facilitation and Constraint factors (optional)</strong><br />
+There are a huge range of factors could either facilitate or restrain the designation of no-go areas. For example:</p>
+<ul>
+<li>Alternative use &amp; land cost constraints:
+<ul>
+<li>Negative weighting for built-up areas<br />
+</li>
+<li>Agricultural land grade or prices<br />
+</li>
+<li>Existing / recent planning commitments – allocation areas.<br />
+</li>
+</ul></li>
+<li>Land ownership, management &amp; designations:
+<ul>
+<li>Ownership: National Trust, Council assets, NGO assets, CWT, RSPB, Duchy of Cornwall, Tregothan estate, Trewithen, St Albans, other?<br />
+</li>
+<li>Landscape or Heritage designation (could constrain or facilitate?)<br />
+</li>
+<li>High-level agri-environment stewardship schemes.<br />
+</li>
+<li>Open access to land?<br />
+</li>
+</ul></li>
+<li>Physical constraints on opportunities:
+<ul>
+<li>Elevation/topography/soil type/inter-tidal zone?</li>
+</ul></li>
+</ul>
+<p>Factors could be applied as weighted layers as part of the prioritization analysis or as simple masks pre/post-analysis.</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
