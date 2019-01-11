@@ -3,7 +3,7 @@ title: "TeviHub"
 output: 
   flexdashboard::flex_dashboard:
     orientation: rows
-    theme: simplex
+    theme: readable
     logo: images/SWEEPLOGO.png
 ---
 <script>
@@ -16,6 +16,8 @@ $('.navbar-logo').wrap('<a href="http://www.sweep.ac.uk"> target=_blank');
 #   https://jrmosedale.github.io/dashboard/
 
 # Linking multiple Rmd files - usew either bookdown or child files - reF:https://stackoverflow.com/questions/25824795/how-to-combine-two-rmarkdown-rmd-files-into-a-single-output
+
+#  devtools::install_github("walkerke/bsselectR")
 
 library(flexdashboard)
 library(bsselectR)
@@ -32,6 +34,7 @@ library(leaflet.extras)
 library(htmlwidgets)
 library(zonator)
 library(RColorBrewer)
+library(DT)
 
 #### iframe refs: https://stackoverflow.com/questions/15255858/set-the-iframe-height-automatically
 ### https://stackoverflow.com/questions/44371799/how-can-i-insert-html-widget-objects-leaflet-map-or-html-table-in-an-html-mark
@@ -177,13 +180,12 @@ hideGroup(c("CTA businesses"))
 
 B. Habitats & Ecosystem Services 
 ============================================================================================
+Important: The habitats and estimates of key ecosystem services presented here are calculated on the basis of 2015 landcover data.
 
 
 Column {.tabset}
 ------------------------------------------------------------------------------------------------------------
-
 ### Map 1 Habitats
-
 ```{r,context='data', include=FALSE}
 
 ############################################
@@ -199,10 +201,6 @@ improvgrass.r<-calc(landcover.r,fun=function(x){ifelse(x==4,1,NA)})
 # Priority habitats
 priority.r<-zero_to_NA(raster(paste0(in.root,"priority_habitat.tif")))
 
-# Protected areas
-#protected.r<-
-#st_crs(protected.r)<-st_crs(27700)
-
 
 ```
 
@@ -217,115 +215,92 @@ leaflet() %>%
   addRasterImage(arable.r,color="brown", 
                  opacity = 0.7,project=TRUE,group="Arable") %>%
   addRasterImage(improvgrass.r,color="green", 
-                 opacity = 0.7,project=TRUE,group="Improved_Grass") %>%
+                 opacity = 0.7,project=TRUE,group="Improved Grass") %>%
   addRasterImage(priority.r,color="purple", 
-                 opacity = 0.7,project=TRUE,group="Priority_habitats") %>%
+                 opacity = 0.7,project=TRUE,group="Priority habitats") %>%
   # addRasterImage(protected.r,color="yellow", 
-  #               opacity = 0.7,project=TRUE,group="Protected_areas") %>%
+  #               opacity = 0.7,project=TRUE,group="Protected areas") %>%
   addLayersControl(
-    overlayGroups =c("Urban", "Arable","Improved_Grass","Priority_habitats","Protected_areas"),
+    overlayGroups =c("Urban", "Arable","Improved Grass","Priority habitats"),
     options = layersControlOptions(collapsed=FALSE)  ) %>%
-  hideGroup(c("Arable","Improved_Grass","Priority_habitats","Protected_areas"))
+  hideGroup(c("Urban","Arable","Improved_Grass","Priority_habitats"))
 ```
 
 ### Map 2 Services
-Key ecosystem service and associated layers are detailed below.
 ```{r,context='data', include=FALSE}
 
 # Load service rasters and determine palette for each
 
 # Soil loss mitigation
-soilmitig.r<-raster(paste0(in.root,"ecoservices/ecoservice_soillossmitig_current.tif"))
+soilmitig.r<-raster(paste0(in.root,"ecoservices/ecoservice_soillossmitig.tif"))
 crs(soilmitig.r)<- CRS('+init=EPSG:27700')
 soilmitig.vals<-getValues(soilmitig.r)
-soilmitig.pal<-mapcolour("soilmitig",soilmitig.vals)
 
 # Aboveground carbon 
 abovecarbon.r<-raster(paste0(in.root,"ecoservices/ecoservice_aboveground_carbon.tif"))
 crs(abovecarbon.r)<- CRS('+init=EPSG:27700')
 abovecarbon.vals<-getValues(abovecarbon.r)
-abovecarbon.pal<-mapcolour("abovecarbon",abovecarbon.vals)
 
 # Pollination 
 pollination.r<-raster(paste0(in.root,"ecoservices/ecoservice_pollination.tif"))
 crs(pollination.r)<- CRS('+init=EPSG:27700')
 pollination.vals<-getValues(pollination.r)
-pollination.pal<-mapcolour("abovecarbon",pollination.vals)
 
 # Flood mitigation
 floodmitig.r<-raster(paste0(in.root,"ecoservices/ecoservice_floodmitig.tif"))
 crs(floodmitig.r)<- CRS('+init=EPSG:27700')
 floodmitig.vals<-getValues(floodmitig.r)
-floodmitig.pal<-mapcolour("floodmitig",floodmitig.vals)
 
 # Drinking water quality
-drinkqual.r<-raster(paste0(in.root,"ecoservices/ecoservice_drinkingwater1.tif"))
+drinkqual.r<-raster(paste0(in.root,"ecoservices/ecoservice_drinkwater.tif"))
 crs(drinkqual.r)<- CRS('+init=EPSG:27700')
 drinkqual.vals<-getValues(drinkqual.r)
-drinkqual.pal<-mapcolour("drinkqual",drinkqual.vals)
 
 # Aquaculture water quality
 aquaqual.r<-raster(paste0(in.root,"ecoservices/ecoservice_aquaculture.tif"))
 crs(aquaqual.r)<- CRS('+init=EPSG:27700')
 aquaqual.vals<-getValues(aquaqual.r)
-aquaqual.pal<-mapcolour("aquaqual",aquaqual.vals)
 
 # Bathing water quality 
 bathqual.r<-raster(paste0(in.root,"ecoservices/ecoservice_bathingwater.tif"))
 crs(bathqual.r)<- CRS('+init=EPSG:27700')
 bathqual.vals<-getValues(bathqual.r)
-bathqual.pal<-mapcolour("bathqual",bathqual.vals)
 
+# Not good catchments water quality 
+catchqual.r<-raster(paste0(in.root,"ecoservices/ecoservice_catchmentquality.tif"))
+crs(catchqual.r)<- CRS('+init=EPSG:27700')
+catchqual.vals<-getValues(catchqual.r)
 
+#servicepal<-colorBin("Greens", domain = NULL, bins = 7, na.color = "transparent")
+servicepal<-colorNumeric("YlOrRd", domain = NULL,  na.color = "transparent")
 
 ```
 
 ```{r,  echo=FALSE}
 
-
 leaflet() %>% 
   setView(lng = -4.9, lat = 50.4, zoom = 10)  %>%
   addProviderTiles("OpenStreetMap.Mapnik") %>%
   addScaleBar() %>%
-  addRasterImage(abovecarbon.r, colors=abovecarbon.pal,
+  addRasterImage(abovecarbon.r, colors=servicepal,
                opacity = 0.8,project=TRUE, group="Aboveground_carbon") %>%
-  addRasterImage(pollination.r, colors=pollination.pal,
+  addRasterImage(pollination.r, colors=servicepal,
                opacity = 0.8,project=TRUE, group="Pollination") %>%
-  addRasterImage(soilmitig.r, colors=soilmitig.pal,
+  addRasterImage(soilmitig.r, colors=servicepal,
                opacity = 0.8,project=TRUE, group="Soil_loss_mitigation") %>%
-  addRasterImage(floodmitig.r, colors=floodmitig.pal,
+  addRasterImage(floodmitig.r, colors=servicepal,
                opacity = 0.8,project=TRUE, group="Flood_mitigation") %>%
-  addRasterImage(drinkqual.r, colors=drinkqual.pal,
+  addRasterImage(drinkqual.r, colors=servicepal,
                opacity = 0.8,project=TRUE, group="Drinking_water") %>%
-  addRasterImage(aquaqual.r, colors=aquaqual.pal,
+  addRasterImage(aquaqual.r, colors=servicepal,
                opacity = 0.8,project=TRUE, group="Aquaculture") %>%
-  addRasterImage(bathqual.r, colors=bathqual.pal,
+  addRasterImage(bathqual.r, colors=servicepal,
                opacity = 0.8,project=TRUE, group="Bathing_water") %>%
+  addLegend(position = "bottomright",
+            pal=servicepal, values=0:100,opacity=1) %>%
 
-   addLegend(position = "bottomright",
-            pal=abovecarbon.pal, values=abovecarbon.vals,
-            group="Aboveground_carbon", opacity=1) %>%
-   addLegend(position = "bottomright",
-            pal=pollination.pal, values=pollination.vals,
-            group="Pollination", opacity=1) %>%
-   addLegend(position = "bottomright",
-            pal=soilmitig.pal, values=soilmitig.vals,
-            group="Soil_loss_mitigation", opacity=1) %>%
-   addLegend(position = "bottomright",
-            pal=floodmitig.pal, values=floodmitig.vals,
-            group="Flood_mitigation", opacity=1) %>%
-   addLegend(position = "bottomright",
-            pal=drinkqual.pal, values=drinkqual.vals,
-            group="Drinking_water", opacity=1) %>%
-   addLegend(position = "bottomright",
-            pal=aquaqual.pal, values=aquaqual.vals,
-            group="Aquaculture", opacity=1) %>%
-   addLegend(position = "bottomright",
-            pal=bathqual.pal, values=bathqual.vals,
-            group="Bathing_water", opacity=1) %>%
-  
   addLayersControl(
-    overlayGroups =c("Aboveground_carbon","Pollination","Soil_loss_mitigation",
+    baseGroups =c("Aboveground_carbon","Pollination","Soil_loss_mitigation",
                      "Flood_mitigation","Drinking_water","Aquaculture","Bathing_water"),
     options = layersControlOptions(collapsed=FALSE)  )  %>%
   
@@ -335,86 +310,69 @@ leaflet() %>%
 ```
 
 
-### Explanatory notes
-Some sort of explanation and/or legend could be placed here, perhaps including links to a methodology document etc?
-
-
-C. Opportunity mapping 
+C. Nature network mapping 
 ============================================================================================
 
 Column {.tabset}
 ------------------------------------------------------------------------------------------------------------
-
-### Existing asset prioritisation
-
-```{r, echo=FALSE}
-
-opp.map1.filername<-paste0("maps/","opps/opp_nogo_map.html")
-
-htmltools::tags$iframe(src = opp.map1.filername, frameborder="0", style="overflow: hidden; height: 100%; width: 100%; position: absolute;")
-```
-
-### Woodland creation
+### Nature network map
+Prioritization of 'non-protected' areas according to estimates of their current biodiversity, connectivity and ecosystem services. Areas currently benefiting from SSSI, SAC, SPA, national or local natures reserves are excluded from ranking. The top twenty percent most highly ranked/valued areas are shown in three bands: top 5%, top 5-10%, top 10-20%. Resolution = 100m2. Click top left icon on map to select layers.
 
 ```{r, echo=FALSE}
 
-opp.map1.filername<-paste0("maps/","opps/opp_woodland_map.html")
+prot.map1.filername<-paste0("maps/","opps/protect_map_vv18.html")
 
-htmltools::tags$iframe(src = opp.map1.filername, frameborder="0", style="overflow: hidden; height: 100%; width: 100%; position: absolute;")
+htmltools::tags$iframe(src = prot.map1.filername, frameborder="0", style="overflow: hidden; height: 100%; width: 100%; position: absolute;")
 ```
 
 ### Method notes
 ```{r child = 'PRIORITYMAP_1.Rmd'}
 ```
 
-### Old Method notes  
-
-#### Mapping of environmental assets for Cornwall  
-  
-**Purpose**  
-The purpose is to generate strategic prioritization maps of existing environmental ‘assets’ across mainland Cornwall.  High priority areas correspond to those areas where current habitats, and the ecosystem services they provide, merit protection from any development or change in land use that will undermine these assets.  
-A further goal of the methodology is to be able to experiment with, and demonstrate, key factors affecting prioritizations. Therefore, the approach is shaped around an methodology which can be readily modified and which allows easy updating/replacement of source data layers or adjustments to the perceived importance of different services, and which can be applied to different spatial areas and resolutions.   
-  
-**Factors determining prioritization**  
-Initial approach will prioritize areas based on:   
-   • Existing habitat and/or land cover type  
-   • Habitat distribution and connectivity  
-   • Species presence distributions (if suitable data available) or area designations based on their biodiversity value (e.g. County wildlife sites)  
-   • Key ecosystem service provision  
-  
-**Additional factors that can be accounted for include:**  
-   • Suitability for other land uses such as agricultural grae, proximity to built-up areas.   
-   • Facilitating factors such as non-statutory designations, land ownership, and landscape characteristics.  
-  
-The methodology assigns highest prioritization/ranking to statutory protected areas such as SSSI's, local and national nature reserves, SACs, SPAs).    
-
-The rankings assigned to a grid cell are not independent. The reasons for this are driven by the need to account for habitat connectivity. There is no value to only ‘partly’ protecting or planting a corridor that links existing habitats – therefore the value of each ‘cell’ along the corridor depends on the habitat of the whole corridor being maintained. In terms of the prioritization maps this means that the ranking of a cell assumes that all other cells of an equal or greater ranking are prioritized.
-  
-**Other methodology notes**  
-   • Initial prioritization scale = 100 metres (will add finer spatial resolution mapping if deemed desirable & feasible).   
-   • Zonation software will be applied to determine the prioritization – a system that that been widely used for land use and conservation planning and allows the iterative adjustment of underlying parameters such as relative weighting of different factors.  
-   • The connectivity of protected areas is accounted for in the way prioritizations are calculated within Zonation.  
-  
-**Important limitations:**  
-   • The value of ecosystem services provided are based upon the current distribution of ecosystem services, habitats and service ‘demand’ factors such as populations and key activities like aquaculture.    
-   • Current outputs do not consider future demand for services (which might be created for example, by future building developments impacting the demand for ecosystem services).  
    
-   
-#### Woodland Opportunity Mapping 
-  
-**Approach and logic **  
-  
-i.	Identify all areas not to consider for woodland creation but which should be preserved to be included in connectivity benefits (ie existing woodland, priority habitats) – see Maintain areas table.  
-ii.	Treat all remaining areas as potential woodland creation areas.  
-iii.	Apply -ve weighting for likely constraints on opportunity (built up areas, High grade agricultural land, topographical constraints) to exclude early in process – see Constraints table.   
-iv.	Calculate “benefits” layers as if already woodland and weight positively (e.g. ecosystem services potentially provided flood mitigation, water quality benefits…).  
-v.	Identify facilitating factors for converting to woodland from existing landcover and weight positively (land ownership, river banks?).  
-vi.	Prioritize “woodland creation opportunities” through zonation method and keep highest priority areas. Will generally value areas with multiple benefits (eg connectivity and flood mitigation benefit).  
+D. Opportunity mapping 
+============================================================================================
 
+Column {.tabset}
+------------------------------------------------------------------------------------------------------------
+
+```{r,context='data', include=FALSE}
+woodopp.data.df<-read.csv("data/documentation/woodland_data_table.csv" ,header=TRUE,stringsAsFactors=FALSE, na.strings = "") 
+
+```
+
+### Woodland opportunity map
+Prioritization of woodland creation opportunities on the basis of estimates of benefits associated with improved habitat area, connectivity and ecosystem services provided. Existing protected urban, woodland, quarries/claypits and protected areas are excluded from consideration, and results consider constraints affecting likely success and costs of implementation. The top twenty percent most highly ranked/valued oppoortunity areas are shown in three bands: top 5%, top 5-10%, top 10-20%. Resolution = 100m2. Click top left icon on map to select layers.
+
+```{r, echo=FALSE}
+
+opp.map1.filername<-paste0("maps/","opps/opp_woodland_map_vv09.html")
+
+htmltools::tags$iframe(src = opp.map1.filername, frameborder="0", style="overflow: hidden; height: 100%; width: 100%; position: absolute;")
+
+```
+
+### Method Notes
+```{r child = 'PRIORITYMAP_2.Rmd'}
+
+# woodopp.method<-paste0("documentation/","Woodland creation test.html")
+# htmltools::tags$iframe(src = woodopp.method, frameborder="0", style="overflow: hidden; height: 100%; width: 100%; position: absolute;")
+
+```
+
+### Data Sources
+```{r, echo=FALSE}
+## DISPLAY TABLE OF DATA SOURCES
+datatable(woodopp.data.df,options = list(dom = 't',ordering = FALSE,
+          pageLength = nrow(woodopp.data.df)),
+          rownames=FALSE,colnames = c('Type of Factor','Factor','Key Data Source','Use in Map','Notes'))
+
+```
 
 
 D. Area maps
 ============================================================================================
+This section is currently UNDER DEVELOPMENT
 
 Column {.tabset}
 ------------------------------------------------------------------------------------------------------------

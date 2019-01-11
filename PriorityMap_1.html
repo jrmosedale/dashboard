@@ -202,137 +202,117 @@ $(document).ready(function () {
 </div>
 
 
-<div id="mapping-of-environmental-assets-for-cornwall" class="section level4">
-<h4>Mapping of environmental assets for Cornwall</h4>
-<p><strong>Purpose</strong><br />
-The purpose is to generate strategic prioritization maps of existing environmental ‘assets’ across mainland Cornwall. High priority areas correspond to those areas where current habitats, and the ecosystem services they provide, merit protection from any development or change in land use that will undermine these assets.<br />
-A further goal of the methodology is to be able to experiment with, and demonstrate, key factors affecting prioritizations. Therefore, the approach is shaped around an methodology which can be readily modified and which allows easy updating/replacement of source data layers or adjustments to the perceived importance of different services, and which can be applied to different spatial areas and resolutions.</p>
-<p><strong>Factors determining prioritization</strong><br />
-Initial approach will prioritize areas based on:</p>
+<div id="summary" class="section level4">
+<h4>Summary</h4>
+<p><strong>What does the map show?</strong><br />
+The ‘nature network’ map shows those areas of Cornwall, currently excluded from statutory protection, that are considered the most valuable in terms of their existing biodiversity, habitats, connectivity and provision of key ecosystem services. Three prioritization classes can be viewed, which correspond to the most valued 5, 10 and 20% of currently non-protected land.</p>
+<p><strong>Prioritization methodology</strong><br />
+Prioritization bands derive from a ranking of <em><strong>all</strong></em> areas outside of statutory protection. The methodology ranks areas based on their biodiversity value and their provision of ecosystem services, while also accounting for key constraining or facilitating factors that could affect the value of these benefits.<br />
+Rankings are assigned using Zonation methodology (REF), which has been widely used for land use and conservation planning. The methodology allows the relative weighting of different indicators of biodiversity value, ecosystem services and other factors while inherently accounting for the value of habitat connectivity. The approach is shaped around a methodology which allows easy updating/replacement of underlying data layers, adjustments to the perceived importance of different services, and can be applied to different spatial areas and scales.</p>
+<p><strong>Notes on the use and interpretation of maps</strong><br />
+It is important to recognize some key aspects of the map and the underlying methodology by which it as generated:</p>
 <ul>
-<li>Existing habitat and/or land cover type<br />
+<li>Rankings are assigned uniquely on the basis of <em><strong>current</strong></em> indicators of ecosystem services, biodiversity and factors like population or industrial activity that may affect the value of ecosystem services.<br />
 </li>
-<li>Habitat distribution and connectivity<br />
+<li>High prioritization does <em><strong>not</strong></em> imply that the existing landcover or habitat features are those best able to deliver the greatest biodiversity or ecosystem service benefits. The biodiversity value and provision of ecosystem servics of even highly ranked areas may still often be improved.<br />
 </li>
-<li>Species presence distributions (if suitable data available) or area designations based on their biodiversity value (e.g. County wildlife sites)<br />
+<li>High prioritization generally favours areas that deliver multiple benefits.<br />
 </li>
-<li>Key ecosystem service provision</li>
+<li>Cell rankings are <em><strong>not</strong></em> fully independent of each other. This dependence is most evident by considering the connectivity of cells. The value of a habitat ‘corridor’ is only meaningful if the two habitats that it links are maintained.</li>
 </ul>
-<p><strong>Additional factors that can be accounted for include:</strong></p>
+<p>Valid potential applications include:</p>
 <ul>
-<li>Suitability for other land uses such as agricultural grae, proximity to built-up areas.<br />
+<li>Identification of additional areas for protection that build upon existing areas under statutory protection.<br />
 </li>
-<li>Facilitating factors such as non-statutory designations, land ownership, and landscape characteristics.</li>
+<li>Targetting of strategic resources to maintain biodiversity and the provision of ecosystem services.</li>
 </ul>
-<p>The methodology assigns highest prioritization/ranking to statutory protected areas such as SSSI’s, local and national nature reserves, SACs, SPAs).</p>
-<p>The rankings assigned to a grid cell are not independent. The reasons for this are driven by the need to account for habitat connectivity. There is no value to only ‘partly’ protecting or planting a corridor that links existing habitats – therefore the value of each ‘cell’ along the corridor depends on the habitat of the whole corridor being maintained. In terms of the prioritization maps this means that the ranking of a cell assumes that all other cells of an equal or greater ranking are prioritized.</p>
-<p><strong>Other methodology notes</strong></p>
-<ul>
-<li>Initial prioritization scale = 100 metres (will add finer spatial resolution mapping if deemed desirable &amp; feasible).<br />
-</li>
-<li>Zonation software will be applied to determine the prioritization – a system that that been widely used for land use and conservation planning and allows the iterative adjustment of underlying parameters such as relative weighting of different factors.<br />
-</li>
-<li>The connectivity of protected areas is accounted for in the way prioritizations are calculated within Zonation.</li>
-</ul>
-<p><strong>Important limitations:</strong></p>
-<ul>
-<li>The value of ecosystem services provided are based upon the current distribution of ecosystem services, habitats and service ‘demand’ factors such as populations and key activities like aquaculture.<br />
-</li>
-<li>Current outputs do not consider future demand for services (which might be created for example, by future building developments impacting the demand for ecosystem services).</li>
-</ul>
-<div id="steps-and-notes-on-data-requirements" class="section level5">
-<h5>Steps and notes on data requirements</h5>
+<hr />
+</div>
+<div id="outline-of-methodological-steps" class="section level4">
+<h4>Outline of Methodological steps</h4>
 <p><strong>1. Define area for prioritization</strong><br />
-Initial focus on prioritization for whole of Cornwall mainland, but can later be applied to:</p>
+Whole of Cornwall mainland at a resolution of 100m2.</p>
+<p><strong>2. Define irreplaceable habitats &amp; existing protected areas:</strong><br />
+These areas define the underlying network of habitats that are taken as ‘given’ and inform habitat area and connectivity benefits:</p>
 <ul>
-<li>AONB area only<br />
-</li>
-<li>Single Catchment eg Fowey<br />
-</li>
-<li>Single Neighbourhood<br />
-</li>
-<li>Balancing different prioritization scales e.g. neighbourhood and county prioritizations.</li>
+<li>Statutory designated areas: SSSI, SAC, SPA, national and local nature reserves.</li>
 </ul>
-<p><strong>2. Define irreplaceable habitats &amp; existing protected areas:</strong></p>
+<p><strong>3. Select biodiversity indicators</strong><br />
+The relative importance of different habitats and other indicators of biodiversity are selected and weightings applied according to a judgement of their importance and the reliability of the data.</p>
+<p>3a. <em>Habitat types &amp; features</em></p>
 <ul>
-<li>Existing designated areas - SSSIs (condition), SAC, SPA, local reserves, County Wildlife sites, National marine conversation zones<br />
+<li>Landcover classes: a synthesis of several existing sources of landcover was used to define habitat types.<br />
 </li>
-<li>Option of defining other irreplaceable/critical habitats through habitat data.</li>
+<li>Linear features: open watercourses and hedgerows.<br />
+</li>
+<li>Habitat condition data: <em><strong>no</strong></em> suitable data for the whole of mainland Cornwall was available.<br />
+</li>
+<li>Habitat Connectivity: is integral to the Zonation methodology.</li>
 </ul>
-<p><strong>3. Biodiversity importance</strong><br />
-Data layers describing the distribution of habitats and (if available) species. The relative importance of different habitats will be represented through a weighting system.</p>
+<p>3b. <em>Species presence or distributions</em></p>
 <ul>
-<li>Habitat data
-<ul>
-<li>Landcover/ habitat distribution (CEH landcover, Nat England Priority habitat – later to include Sentinel derived landcover data)<br />
-</li>
-<li>Condition data if/when available (initially assume constant unless suitable data identified)<br />
-</li>
-<li>Linear features layers such as river banks, hedgerows (ERCCIS data)<br />
-</li>
-<li>Fragmentation/Connectivity – is integrated into the Zonation methodology but there is also the option of explicitly generating layers describing connectivity through various indices/methods.<br />
-</li>
-</ul></li>
-<li>Non-statutory designations based on biodiversity value.<br />
-</li>
-<li>Areas defined as County wildlife sites (ERCCIS data).</li>
+<li>Species distribution data: <em><strong>not</strong></em> used due to concerns that the existing distribution data was not representative of distributions across the whole of mainland Cornwall.</li>
 </ul>
-<p><strong>NB:</strong> New landcover/habitat data for Cornwall will replace the data mentioned above during 2019.</p>
+<p>3b. <em>Non-statutory designations based on biodiversity value</em></p>
+<ul>
+<li>Country Wildlife Sites.</li>
+</ul>
 <p><strong>4. Ecosystem services</strong><br />
-Initially only a small subset of services likely to be explicitly included:</p>
+Each service is given a weighting to describe the relative importance ascribed to different ecosystem services and the reliability of the underlying data informing their calculation. The following key ecosystem services are estimated:</p>
 <ul>
-<li>Soil erosion<br />
-</li>
 <li>Flood mitigation<br />
-</li>
-<li>Water quality (for drinking, bathing and aquaculture waters)<br />
 </li>
 <li>Carbon storage<br />
 </li>
 <li>Pollination<br />
-List can be expanded as and when suitable methods are developed.<br />
-There are methodological challenges – particularly in capturing the ‘demand’ for services eg impacts of floods, pollinator requirements of agriculture, accessibility of services (see below) etc.<br />
-As with habitat and species data, weighting can be applied to describe the relative importance ascribed to different ecosystem services.</li>
+</li>
+<li>Water quality management for aquaculture, drinking water, beaches and for ‘not good’ catchments.<br />
+</li>
+<li>Air quality management</li>
 </ul>
-<p><strong>5. Integrating accessibility as a factor in service provision (not yet implemented)</strong> The provision of some ecosystem services depends on access / visitation to greenspace including a range of cultural/recreational/health benefits.<br />
-Some simple options to integrate might be:</p>
+<p>Estimation of these services requires an assessment of the ‘demand for’ or ‘risk’ associated with each service (eg areas susceptible to flooding), as well as of service provision. Areas ‘at risk’ and areas of service provision are often spatially distant.</p>
+<p><strong>5. Facilitating factors</strong><br />
+Factors that could facilitate the delivery and/or protection of existing assets and services are given a positive weighting reflecting their relative importance.</p>
+<ul>
+<li>Indicators of sympathetic land ownership or management such as National Trust land holdings or participation in higher-level environmental stewardship schemes.<br />
+</li>
+<li>Unsuitability for alternative land uses such as steep slopes or north facing aspects.</li>
+</ul>
+<p><strong>6. Constraint factors</strong> Factors that could constrain the delivery and/or protection of existing assets and services are given a negative weighting according to their relative importance. A high negative weighting will ensure a low ranking is assigned to those areas to which the constraint factor applies.</p>
+<ul>
+<li>Suitability for alternative land use (opportunity costs):
+<ul>
+<li>Agricultural land grade.<br />
+</li>
+<li>Existing / recent planning commitments.<br />
+</li>
+<li>Mineral deposits.<br />
+</li>
+</ul></li>
+<li>Presence of existing land features that reduce benefits/services:
+<ul>
+<li>Built-up areas<br />
+</li>
+<li>Recreational greenspaces (golf courses, playing fields…)<br />
+</li>
+<li>Roads / railways / infrastructure<br />
+</li>
+<li>Quarries</li>
+</ul></li>
+</ul>
+<p><strong>7. Additional layers for inclusion in visualisation but not analysis</strong><br />
+Additional information layers are included to provide context for the analysis but do not affect prioritization. Such factors are given a zero weighting in the analysis. Such factors include administrative boundaries and the AONB.</p>
+<hr />
+<p><strong>Note: Integrating ecosystem services dependent upon accessibility</strong><br />
+The provision of some ecosystem services depends on access / visitation to greenspace including a range of cultural/recreational/health benefits. Accessibility, however, can be detrimental to the value of other services including biodiversity, noise or soil loss mitigation.<br />
+Some simple options to reflect aspects of accessibility include:</p>
 <ul>
 <li>Weighting according to size of nearby resident population (which will favour protected areas close to population centres).<br />
 </li>
-<li>Balancing prioritizations at different spatial scales (which will favour wider distribution of no-go areas).<br />
+<li>Weighting by presence of access methods such as the density of foopaths or the right of open access to an area. This does not address wider aspects of accessibility like distance from poopulation centres, public or private transport options.<br />
 </li>
-<li>Footpaths/hedgerows – possess habitat corridor value</li>
+<li>Analysis of prioritizations for different administrative units - this will indirectly favour a wider spatial distribution of high priority areas.</li>
 </ul>
-<p><strong>6. Facilitation and Constraint factors (optional)</strong><br />
-There are a huge range of factors could either facilitate or restrain the designation of no-go areas. For example:</p>
-<ul>
-<li>Alternative use &amp; land cost constraints:
-<ul>
-<li>Negative weighting for built-up areas<br />
-</li>
-<li>Agricultural land grade or prices<br />
-</li>
-<li>Existing / recent planning commitments – allocation areas.<br />
-</li>
-</ul></li>
-<li>Land ownership, management &amp; designations:
-<ul>
-<li>Ownership: National Trust, Council assets, NGO assets, CWT, RSPB, Duchy of Cornwall, Tregothan estate, Trewithen, St Albans, other?<br />
-</li>
-<li>Landscape or Heritage designation (could constrain or facilitate?)<br />
-</li>
-<li>High-level agri-environment stewardship schemes.<br />
-</li>
-<li>Open access to land?<br />
-</li>
-</ul></li>
-<li>Physical constraints on opportunities:
-<ul>
-<li>Elevation/topography/soil type/inter-tidal zone?</li>
-</ul></li>
-</ul>
-<p>Factors could be applied as weighted layers as part of the prioritization analysis or as simple masks pre/post-analysis.</p>
-</div>
 </div>
 
 

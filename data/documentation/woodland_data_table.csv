@@ -1,0 +1,38 @@
+﻿Type of Factor,Factor,Key Data Sources,Use in Map,Notes
+Excluded,Existing Priority Habitats,Natural England Priority Habitats,Y,
+Excluded,Existing Woodland,"CEH landcover, Natural England, Forestry Commission, Ancient Woodlands.",Y,
+Excluded,Urban areas,"CEH landcover layer, OS urban areas.",Y,
+Excluded,Allocation areas,Cornwall Council,Y,
+Excluded,Quarries,OpenStreetMap and OS,Y,
+Excluded,"Protected area (SSSI, national, local nature reserves etc)",Natural England,Y,
+Excluded,Intertidal zone,OS,Y,
+Excluded,Very high wind exposure,NCEP/NCAR Reanalysis data,Y,
+Excluded,Inland & Coastal Rock,CEH landcover,Y,
+Excluded,Deep peat soils,"CEH HOST soil data, Natural England deep peat areas.",Y,
+***,***,***,***,
+Constraint,Buildings cover (non-Urban areas),"OS OpenLocal, National Receptor Dataset",Y,High building cover reduces realisation of creation and benefits
+Constraint,Grade 1 & 2 Agricultural land,Natural England Agricultural Land Classification,Y,
+Constraint,Main Roads,OS OpenRoads ,N,
+Constraint,Railways,OS OpenLocal,N,
+Constraint,"Existing recreational greenspace (golf course, playing field etc)",OS greenspace,Y,
+Constraint,"Heritage site (scheduled monument, battlefield, parks and gardens…)",English Heritage,Y,
+Constraint,Heritage status (World Heritage Site),English Heritage,Y,
+Constraint,Wind exposure,NCEP/NCAR Reanalysis data,Y,
+Constraint,Land cost,,N,Agricultural land classification used as proxy
+Constraint,Landscape Character,"Various sources: Natural England National Character Areas, Cornwall Council, AONB…",N,Currently NOT used - connectivity benefits weights towards areas of existing woodland. 
+***,***,***,***,
+Facilitator,Land ownership ,"Cornwall Council, National Trust etc",N,Certain land owners may be more amenable to habitat creation or have commitment to enhancing ecosystem services / biodiversity
+Facilitator,Participation in Environmental stewardship scheme,Natural England,Y,Suggests willingness to adapt existing landuse for environmental benefits.
+Facilitator,Linear landscape features (rivers/hedges),,N,May facilitate establishment / change of use
+Facilitator,Rights of way,"OS/Cornwall COuncil public footpaths, Natural England CROW",N,Existing rights of way may enhance benefits
+Facilitator,Steep slope,OS Terrain 50,Y,Limited alternative land use options
+Facilitator,North-facing slope,OS Terrain 50,N,Less appealing alternative land use options
+***,***,***,***,
+Benefit,Habitat area and connectivity,"Existing landcover maps from CEH, Natural England, ERCCIS, & other sources ",Y, Improving connectivity and aggregation of woodland and other semi-natural habitats.
+Benefit,Flood mitigation,"Multiple including EA flood risk maps, NRD, OS OpenRivers and Terrain, and land cover data.",Y,Mitigation of downstream risk of flooding
+Benefit,Soil loss mitigation,ESDAC RUSLE soil loss from water runoff,Y,Soil erosion from surface runoff
+Benefit,Water quality - drinking water,Multiple - EA drinking water sensitive zones,Y,Mitigation of upstream difffuse water pollution 
+Benefit,Water quality - aquaculture,Multiple - NE shellfish water,Y,Mitigation of upstream difffuse water pollution 
+Benefit,Water quality - bathing water,"Multiple - EA bathing water, OpenStreetMap ",Y,Mitigation of upstream difffuse water pollution 
+Benefit,Water quality - not good catchments,EA WFD catchment data,Y,
+Benefit,Air quality ,Air Quality Monitoring Zones,Y,

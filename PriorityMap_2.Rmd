@@ -1,0 +1,43 @@
+####Summary  
+**What does the map show?**   
+The 'woodland opportunity' map ranks areas according to the potential benefits of woodland creation.
+Three prioritization classes can be viewed, which correspond to the most beneficial 5, 10 and 20% of currentlypotential woodland sites.   
+
+**Prioritization methodology**  
+Prioritization bands derive from a ranking of *__all__* potential areas of woodland creation that are not excluded in advance (such as urban or existing woodland areas). The methodology ranks areas based on potential benefits in habitat connectivity and increased provision of ecosystem services, while also accounting for key constraining or facilitating factors that could affect the value, or likelihood of realising, these benefits.       
+Rankings are assigned using Zonation methodology (REF), which has been widely used for land use and conservation planning. The methodology allows the relative weighting of different  factors while inherently accounting for the benefits of habitat connectivity. The approach is shaped around a methodology which allows easy updating/replacement of underlying data layers, adjustments to the perceived importance of different services, and can be applied to different spatial areas and scales.     
+
+**Notes on the use and interpretation of maps**  
+It is important to recognize some key aspects of the map and the underlying methodology by which it as generated:
+
+* Rankings are assigned uniquely on the basis of *__potential__* benefits but does not capture all such benefits or indeed potential costs.   
+* High prioritization generally favours areas that deliver multiple benefits.   
+* Cell rankings are *__not__* fully independent of each other. This dependence is most evident by considering the connectivity of cells. The value of a habitat ‘corridor’ is only meaningful if the two habitats that it links are maintained.   
+
+
+Valid potential applications include: 
+
+* Identification of strategic areas for woodland creation.  
+* it is NOT suitable for assessing benefits of very small scale plantings.
+
+***
+
+####Outline of Methodological steps  
+  
+**1. Identify all areas to exclude from woodland creation:**  
+Identify areas not to be considered for woodland creation, such as urban areas, existing woodland or protected areas etc. Information on excluded areas will still inform the assessment of, for example, habitat connectivity benefits. All remaining areas are treated as potential woodland creation areas.    
+
+**2.  Identify ‘constraining’ factors:**  
+Constraints are factors that are likely to reduce likelihood, or increase the cost, of realising woodland benefits, including current or high suitability for competing land use. Factors might include topographical constraints such as wind exposure, high grade agricultural land and percent building cover. Although not entirely excluded from consideration these factors are given a negative weighting in the analysis. A high negative weighting will ensure a low ranking is assigned to those areas to which the constraint factor applies.
+
+**3. Identify ‘facilitating’ factors:**  
+Factors that will increase the likelihood, or lower the cost, of realising the benefits of wood creation opportunities. For example, steep slopes could be considered a facilitating factor as they can restrict alternative land uses, particularly agriculture. Each factor will be given a positive weighting in the analysis. Such factors are likley to include:    
+
+* Indicators of sympathetic land ownership or management such as National Trust land holdings or participation in higher-level environmental stewardship schemes.     
+* Unsuitability for alternative land uses such as steep slopes or north facing aspects.    
+
+**4. Identify and estimate the relative value of woodland “benefits”:**    
+Each benefit will be assigned a positive weighting. The calculation of benefits will generally involve an estimation of both the demand for, and the potential provision of the benefit from woodland creation although the methodologies for doing so vary between different types of benefit. These include habitat connectivity and area:perimeter benefits, as well as potential increases to ecosystem services from woodland creation.
+
+**5. Prioritization of “woodland creation opportunities”:**     
+Analysis is undertaken through the Zonation methodology with the assigned ranking determining the prioritization band assigned to each ‘cell’. The Zonation methodology accounts for potential benefits to habitat connectivity. Zonation parameters will also determine the relative importance assigned to, for example, areas with a high single or rare benefit and those where woodland creation is likely to produce multiple benefits.

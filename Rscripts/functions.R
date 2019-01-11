@@ -102,3 +102,11 @@ mapcolour <- function(var,r) {
   )
 } # mapcolour
 
+mapcolour4scale<- function(r) {
+  if (class(r)[1]=="RasterLayer") r<-getValues(r)
+  q<-quantile(r,c(0,0.2,0.5,0.8,1),names=FALSE,na.rm=TRUE)
+  mnmx<-c(min(q),max(q)) # or could be added as parameter
+  pal<-colorBin(c("blue","purple","dark green","green"),domain=round(mnmx),bins=4,pretty=TRUE,na.color=NA)
+  return(pal)
+}
+  
