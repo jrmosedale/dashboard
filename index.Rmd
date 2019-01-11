@@ -178,14 +178,15 @@ hideGroup(c("CTA businesses"))
 
 ```
 
-B. Habitats & Ecosystem Services 
+B. Ecosystem Services 
 ============================================================================================
 Important: The habitats and estimates of key ecosystem services presented here are calculated on the basis of 2015 landcover data.
 
 
 Column {.tabset}
 ------------------------------------------------------------------------------------------------------------
-### Map 1 Habitats
+
+
 ```{r,context='data', include=FALSE}
 
 ############################################
@@ -205,7 +206,7 @@ priority.r<-zero_to_NA(raster(paste0(in.root,"priority_habitat.tif")))
 ```
 
 
-```{r,  echo=FALSE}
+```{r,  echo=FALSE, include=FALSE}
 leaflet() %>% 
   setView(lng = -4.9, lat = 50.4, zoom = 10)  %>%
   addProviderTiles("OpenStreetMap.Mapnik") %>%
@@ -226,7 +227,7 @@ leaflet() %>%
   hideGroup(c("Urban","Arable","Improved_Grass","Priority_habitats"))
 ```
 
-### Map 2 Services
+### Maps of Services
 ```{r,context='data', include=FALSE}
 
 # Load service rasters and determine palette for each
@@ -315,9 +316,9 @@ C. Nature network mapping
 
 Column {.tabset}
 ------------------------------------------------------------------------------------------------------------
-### Nature network map
-Prioritization of 'non-protected' areas according to estimates of their current biodiversity, connectivity and ecosystem services. Areas currently benefiting from SSSI, SAC, SPA, national or local natures reserves are excluded from ranking. The top twenty percent most highly ranked/valued areas are shown in three bands: top 5%, top 5-10%, top 10-20%. Resolution = 100m2. Click top left icon on map to select layers.
 
+### Nature network map     
+Prioritization of 'non-protected' areas according to estimates of their current biodiversity, connectivity and ecosystem services. Areas currently benefiting from SSSI, SAC, SPA, national or local natures reserves are excluded from ranking. The top twenty percent most highly ranked/valued areas are shown in three bands: Band1 = top 5%, Band 2=  5-10%, Band 3=  10-20%. Resolution = 100m2. Click top right icon on map to select layers.    
 ```{r, echo=FALSE}
 
 prot.map1.filername<-paste0("maps/","opps/protect_map_vv18.html")
@@ -342,7 +343,7 @@ woodopp.data.df<-read.csv("data/documentation/woodland_data_table.csv" ,header=T
 ```
 
 ### Woodland opportunity map
-Prioritization of woodland creation opportunities on the basis of estimates of benefits associated with improved habitat area, connectivity and ecosystem services provided. Existing protected urban, woodland, quarries/claypits and protected areas are excluded from consideration, and results consider constraints affecting likely success and costs of implementation. The top twenty percent most highly ranked/valued oppoortunity areas are shown in three bands: top 5%, top 5-10%, top 10-20%. Resolution = 100m2. Click top left icon on map to select layers.
+Prioritization of woodland creation opportunities on the basis of estimates of benefits associated with improved habitat area, connectivity and ecosystem services provided. Existing protected urban, woodland, quarries/claypits and protected areas are excluded from consideration, and results consider constraints affecting likely success and costs of implementation. The top twenty percent most highly ranked/valued oppoortunity areas are shown in three bands: Band1 = top 5%, Band 2=  5-10%, Band 3=  10-20%. Resolution = 100m2. Click top right icon on map to select layers.
 
 ```{r, echo=FALSE}
 
