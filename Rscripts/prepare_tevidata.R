@@ -17,7 +17,7 @@ library(htmlwidgets)
 library(zonator)
 library(RColorBrewer)
 
-in.root<-"data/"
+in.root<-paste0(getwd(),"/data/")
 
 # From working project directory
 # Load parishes
@@ -26,22 +26,24 @@ in.root<-"data/"
 # Load CNA
 cna.shp<-st_read(paste0(in.root,"community_network_areas.shp"))
 st_crs(cna.shp)<-st_crs(27700)
+names(cna.shp)<-c("OBJECTID","CNA","MEMBERS","LINK", "PROFLINK","Shape_Leng","Shape_Area","geometry")
 
+tevibus<-st_read(paste0(in.root,"tevi/TeviEnterprises_130219.shp"))
+st_crs(tevibus)<-st_crs(27700)
 
-tevibus<- st_read(paste0("tevidata/Gazetteer261018/Gazetteer261018.shp"))
-sectorbus<- st_read(paste0("tevidata/Sectors261018/Sector_enterprises261018.shp"))
+#tevibus<- st_read(paste0("tevidata/Gazetteer261018/Gazetteer261018.shp"))
+#sectorbus<- st_read(paste0("tevidata/Sectors261018/Sector_enterprises261018.shp"))
 #csawinners<-st_read(paste(in.root,"CSA_winners/CSA_winners_shp.shp",sep=""))
 #cta2018<- st_read(paste0(in.root,"CTA_2018/CTA_winners_shp.shp"))
 #csatevi<- st_read(paste0(in.root,"CSA_Tevi_interractions/CSA_Tevi_interractions_shp.shp"))
-st_crs(tevibus)<-st_crs(27700)
-st_crs(sectorbus)<-st_crs(27700)
+#st_crs(sectorbus)<-st_crs(27700)
 #st_crs(csawinners)<-st_crs(27700)
 #st_crs(cta2018)<-st_crs(27700)
 #st_crs(csatevi)<-st_crs(27700)
 
 #  Merge tevibus and sector data 
-st_geometry(sectorbus) <- NULL
-tevibus<-st_sf(merge(as.data.frame(tevibus),sectorbus[,c("Enterprise","Sector")],by="Enterprise"))
+#st_geometry(sectorbus) <- NULL
+#tevibus<-st_sf(merge(as.data.frame(tevibus),sectorbus[,c("Enterprise","Sector")],by="Enterprise"))
 
 #  Merge tevibus and csatevi data 
 #st_geometry(csatevi) <- NULL
@@ -51,7 +53,7 @@ tevibus<-st_sf(merge(as.data.frame(tevibus),sectorbus[,c("Enterprise","Sector")]
 # Set tevi colour on basis of Status
 teviColour <- function(tevibus) {
   sapply(tevibus$Status, function(Status) {
-    if(Status == "In process") "green" else if(Status == "Initial engagement") "orange" else if(Status == "Complete") "red"
+    if(Status == "In process") "lightgreen" else if(Status == "Initial engagement") "lightblue" else if(Status == "Complete") "darkgreen"
     
   })
 }
@@ -59,7 +61,7 @@ tevibus$Colour<-teviColour(tevibus)
 
 
 # Create lookup table for sector icons
-sector.labels<- unique(as.character(tevibus$Sector))
+sector.labels<- levels(tevibus$Sector)
 # Set icon type from font awesome
 sector.icons<-c( "leaf", # Agric
                  "home", #Architect
@@ -69,11 +71,11 @@ sector.icons<-c( "leaf", # Agric
                  "tint", # Cleaning
                  "globe", # Conservation 
                  "globe", # Conservation and tourism
+                 "home", # Construction
                  "briefcase", # Consultancy
                  "paint-brush",  # creative
                  "tree", # Environmental
                  "shopping-basket", # Food & Drink
-                 "shopping-basket", # Food & drink
                  "leaf",  # Garden maint
                  "medkit", # Healthcare
                  "leaf",  # Hort
@@ -88,25 +90,33 @@ sector.icons<-c( "leaf", # Agric
                  "shopping-cart", # Retail 
                  "android", # Technology
                  "child", # Tourism
-                 "recycle" # Waste
+                 "recycle", # Waste
+                 "recycle" # Waste management
                  )
-print(sector.labels[order(sector.labels)])
+
 print(sector.icons)
-sectoricon.lookup<-as.data.frame(cbind(sector.labels[order(sector.labels)],sector.icons)     )
+length(sector.icons)==length(sector.labels)
+
+sectoricon.lookup<-as.data.frame(cbind(sector.labels,sector.icons)     )
 names(sectoricon.lookup)<-c("Sector","Icon")
 # Add icon column to tevibus data
 tevibus<-st_sf(merge(as.data.frame(tevibus),sectoricon.lookup,by="Sector",all.x=TRUE))
 
 # Add Geogrpahical labels - ie CNA, parish etc
-tevibus<-st_intersection(tevibus,cna.shp[,c("NAME","geometry")])
-names(tevibus["NAME"])<-"CNA"
+
+tevibus<-st_intersection(tevibus,cna.shp[,c("CNA","geometry")])
 plot(tevibus$geometry)
 #csawinners<-st_intersection(csawinners,parishes[,c("NAME","geometry")])
 #cta2018<-st_intersection(cta2018,parishes[,c("NAME","geometry")])
 
 
 # Save tevi data in data folder ready for use by Dashboard app
-st_write(tevibus,paste0("data/tevibus.shp"),delete_layer = T)
+#tevibus.filename<-"D:/tevibus.shp"
+tevibus.filename<-paste0(in.root,"tevibus.shp")
+
+print(paste("Writing file: ",tevibus.filename))
+
+st_write(tevibus,tevibus.filename,delete_layer = T)
 #  tevibus<- st_read(paste0("data/tevibus.shp")); st_crs(tevibus)<-st_crs(27700)
 
 

@@ -45,8 +45,8 @@ library(DT)
 # if (Sys.getenv("HOME")=="/Users/jm622") in.root<-paste0(Sys.getenv("HOME"),"/OneDrive - University of Exeter/Rprojects/EG4B/app/")
 in.root<-"data/"
 dir_cna<-paste0(in.root,"cnamaps/")
-dir_ZProject<-paste0("/Volumes/Pocket_Sam/data/Zonation_Projects/Cornwall_Priority/")
-dir_zinputs<-"/Volumes/Pocket_Sam/data/Zonation_data/"
+#dir_ZProject<-paste0("/Volumes/Pocket_Sam/data/Zonation_Projects/Cornwall_Priority/")
+#dir_zinputs<-"/Volumes/Pocket_Sam/data/Zonation_data/"
 
 ################################################
 # Load functions 
