@@ -182,50 +182,8 @@ B. Ecosystem Services
 ============================================================================================
 Important: The habitats and estimates of key ecosystem services presented here are calculated on the basis of 2015 landcover data.
 
-
 Column {.tabset}
 ------------------------------------------------------------------------------------------------------------
-
-
-```{r,context='data', include=FALSE}
-
-############################################
-# LOAD Habitat and Service data and prepare for mapping
-############################################
-
-# Landcover data
-landcover.r<-raster(paste0(in.root,"domcover.tif"))
-urban.r<-calc(landcover.r,fun=function(x){ifelse(x>19,1,NA)})
-arable.r<-calc(landcover.r,fun=function(x){ifelse(x==3,1,NA)})
-improvgrass.r<-calc(landcover.r,fun=function(x){ifelse(x==4,1,NA)})
-
-# Priority habitats
-priority.r<-zero_to_NA(raster(paste0(in.root,"priority_habitat.tif")))
-
-
-```
-
-
-```{r,  echo=FALSE, include=FALSE}
-leaflet() %>% 
-  setView(lng = -4.9, lat = 50.4, zoom = 10)  %>%
-  addProviderTiles("OpenStreetMap.Mapnik") %>%
-  addScaleBar() %>%
-  addRasterImage(urban.r,color="black", 
-               opacity = 0.7,project=TRUE,group="Urban") %>%
-  addRasterImage(arable.r,color="brown", 
-                 opacity = 0.7,project=TRUE,group="Arable") %>%
-  addRasterImage(improvgrass.r,color="green", 
-                 opacity = 0.7,project=TRUE,group="Improved Grass") %>%
-  addRasterImage(priority.r,color="purple", 
-                 opacity = 0.7,project=TRUE,group="Priority habitats") %>%
-  # addRasterImage(protected.r,color="yellow", 
-  #               opacity = 0.7,project=TRUE,group="Protected areas") %>%
-  addLayersControl(
-    overlayGroups =c("Urban", "Arable","Improved Grass","Priority habitats"),
-    options = layersControlOptions(collapsed=FALSE)  ) %>%
-  hideGroup(c("Urban","Arable","Improved_Grass","Priority_habitats"))
-```
 
 ### Maps of Services
 ```{r,context='data', include=FALSE}

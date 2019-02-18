@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">TeviHub</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div id="summary" class="section level4">
+<h4>Summary</h4>
+<p><strong>What does the map show?</strong><br />
+The ‘woodland opportunity’ map ranks areas according to the potential benefits of woodland creation. Three prioritization classes can be viewed, which correspond to the most beneficial 5, 10 and 20% of currentlypotential woodland sites.</p>
+<p><strong>Prioritization methodology</strong><br />
+Prioritization bands derive from a ranking of <em><strong>all</strong></em> potential areas of woodland creation that are not excluded in advance (such as urban or existing woodland areas). The methodology ranks areas based on potential benefits in habitat connectivity and increased provision of ecosystem services, while also accounting for key constraining or facilitating factors that could affect the value, or likelihood of realising, these benefits.<br />
+Rankings are assigned using Zonation methodology (REF), which has been widely used for land use and conservation planning. The methodology allows the relative weighting of different factors while inherently accounting for the benefits of habitat connectivity. The approach is shaped around a methodology which allows easy updating/replacement of underlying data layers, adjustments to the perceived importance of different services, and can be applied to different spatial areas and scales.</p>
+<p><strong>Notes on the use and interpretation of maps</strong><br />
+It is important to recognize some key aspects of the map and the underlying methodology by which it as generated:</p>
+<ul>
+<li>Rankings are assigned uniquely on the basis of <em><strong>potential</strong></em> benefits but does not capture all such benefits or indeed potential costs.<br />
+</li>
+<li>High prioritization generally favours areas that deliver multiple benefits.<br />
+</li>
+<li>Cell rankings are <em><strong>not</strong></em> fully independent of each other. This dependence is most evident by considering the connectivity of cells. The value of a habitat ‘corridor’ is only meaningful if the two habitats that it links are maintained.</li>
+</ul>
+<p>Valid potential applications include:</p>
+<ul>
+<li>Identification of strategic areas for woodland creation.<br />
+</li>
+<li>it is NOT suitable for assessing benefits of very small scale plantings.</li>
+</ul>
+<hr />
+</div>
+<div id="outline-of-methodological-steps" class="section level4">
+<h4>Outline of Methodological steps</h4>
+<p><strong>1. Identify all areas to exclude from woodland creation:</strong><br />
+Identify areas not to be considered for woodland creation, such as urban areas, existing woodland or protected areas etc. Information on excluded areas will still inform the assessment of, for example, habitat connectivity benefits. All remaining areas are treated as potential woodland creation areas.</p>
+<p><strong>2. Identify ‘constraining’ factors:</strong><br />
+Constraints are factors that are likely to reduce likelihood, or increase the cost, of realising woodland benefits, including current or high suitability for competing land use. Factors might include topographical constraints such as wind exposure, high grade agricultural land and percent building cover. Although not entirely excluded from consideration these factors are given a negative weighting in the analysis. A high negative weighting will ensure a low ranking is assigned to those areas to which the constraint factor applies.</p>
+<p><strong>3. Identify ‘facilitating’ factors:</strong><br />
+Factors that will increase the likelihood, or lower the cost, of realising the benefits of wood creation opportunities. For example, steep slopes could be considered a facilitating factor as they can restrict alternative land uses, particularly agriculture. Each factor will be given a positive weighting in the analysis. Such factors are likley to include:</p>
+<ul>
+<li>Indicators of sympathetic land ownership or management such as National Trust land holdings or participation in higher-level environmental stewardship schemes.<br />
+</li>
+<li>Unsuitability for alternative land uses such as steep slopes or north facing aspects.</li>
+</ul>
+<p><strong>4. Identify and estimate the relative value of woodland “benefits”:</strong><br />
+Each benefit will be assigned a positive weighting. The calculation of benefits will generally involve an estimation of both the demand for, and the potential provision of the benefit from woodland creation although the methodologies for doing so vary between different types of benefit. These include habitat connectivity and area:perimeter benefits, as well as potential increases to ecosystem services from woodland creation.</p>
+<p><strong>5. Prioritization of “woodland creation opportunities”:</strong><br />
+Analysis is undertaken through the Zonation methodology with the assigned ranking determining the prioritization band assigned to each ‘cell’. The Zonation methodology accounts for potential benefits to habitat connectivity. Zonation parameters will also determine the relative importance assigned to, for example, areas with a high single or rare benefit and those where woodland creation is likely to produce multiple benefits.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
