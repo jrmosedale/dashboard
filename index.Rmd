@@ -301,11 +301,11 @@ woodopp.data.df<-read.csv("data/documentation/woodland_data_table.csv" ,header=T
 ```
 
 ### Woodland opportunity map
-Prioritization of woodland creation opportunities on the basis of estimates of benefits associated with improved habitat area, connectivity and ecosystem services provided. Existing protected urban, woodland, quarries/claypits and protected areas are excluded from consideration, and results consider constraints affecting likely success and costs of implementation. The top twenty percent most highly ranked/valued oppoortunity areas are shown in three bands: Band1 = top 5%, Band 2=  5-10%, Band 3=  10-20%. Resolution = 100m2. Click top right icon on map to select layers.
+Prioritization of woodland creation opportunities on the basis of estimates of biodiversity and ecosystem services benefits Most highly ranked/valued oppoortunity areas are shown in three bands: Band1 = 50% increase in woodland cover, Band 1 & 2 =  doubling in woodland cover, Band 1,2 & 3 =  tripling in woodland cover. Resolution = 100m2. Click top right icon on map to select layers.
 
 ```{r, echo=FALSE}
 
-opp.map1.filername<-paste0("maps/","opps/opp_woodland_map_vv09.html")
+opp.map1.filername<-paste0("maps/","opps/opp_woodland_map_vv12.html")
 
 htmltools::tags$iframe(src = opp.map1.filername, frameborder="0", style="overflow: hidden; height: 100%; width: 100%; position: absolute;")
 
