@@ -99,7 +99,7 @@ rank_after_mask<-function(r,msk){
 
 ```
 
-A. Business Locations and Engagement 
+A. Business Engagement 
 ============================================================================================
 Businesses participating (as of September 2018) in the [Tevi](https://tevi.co.uk) programme, award winners of the [Cornwall Sustainability Awards](https://www.cornwallsustainabilityawards.org) (2004-17) and [Cornwall Tourism Awards](http://www.cornwalltourismawards.org.uk) (2018 only).
 Click on marker for further information.
@@ -281,11 +281,16 @@ Prioritization of 'non-protected' areas according to estimates of their current 
 
 prot.map1.filername<-paste0("maps/","opps/protect_map_vv18.html")
 
-htmltools::tags$iframe(src = prot.map1.filername, frameborder="0", style="overflow: hidden; height: 100%; width: 100%; position: absolute;")
+htmltools::tags$iframe(src = prot.map1.filername, frameborder="0", style="overflow: hidden; height: 90%; width: 100%; position: absolute;")
 ```
 
+
 ### Method notes
-```{r child = 'PRIORITYMAP_1.Rmd'}
+```{r,echo=FALSE }
+
+natnetwork.doc<-paste0("documentation/","Prioritization_maps_documentation_webversion.htm")
+
+htmltools::tags$iframe(src = natnetwork.doc, frameborder="0", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
 ```
 
    
@@ -307,7 +312,7 @@ Prioritization of woodland creation opportunities on the basis of estimates of b
 
 opp.map1.filername<-paste0("maps/","opps/opp_woodland_map_vv12.html")
 
-htmltools::tags$iframe(src = opp.map1.filername, frameborder="0", style="overflow: hidden; height: 100%; width: 100%; position: absolute;")
+htmltools::tags$iframe(src = opp.map1.filername, frameborder="0", style="overflow: hidden; height: 90%; width: 100%; position: absolute;")
 
 ```
 
