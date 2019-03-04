@@ -279,7 +279,7 @@ Column {.tabset}
 Prioritization of 'non-protected' areas according to estimates of their current biodiversity, connectivity and ecosystem services. Areas currently benefiting from SSSI, SAC, SPA, national or local natures reserves are excluded from ranking. The top twenty percent most highly ranked/valued areas are shown in three bands: Band1 = top 5%, Band 2=  5-10%, Band 3=  10-20%. Resolution = 100m2. Click top right icon on map to select layers.    
 ```{r, echo=FALSE}
 
-prot.map1.filername<-paste0("maps/","opps/protect_map_vv18.html")
+prot.map1.filername<-paste0("maps/","protect/map_v25.html")
 
 htmltools::tags$iframe(src = prot.map1.filername, frameborder="0", style="overflow: hidden; height: 90%; width: 100%; position: absolute;")
 ```
