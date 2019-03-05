@@ -2,9 +2,10 @@
 title: "TeviHub"
 output: 
   flexdashboard::flex_dashboard:
-    orientation: rows
-    theme: readable
+    orientation: columns
+    theme: flatly
     logo: images/SWEEPLOGO.png
+    author: "Jonathan Mosedale"
 ---
 <script>
 $('.navbar-logo').wrap('<a href="http://www.sweep.ac.uk"> target=_blank');
@@ -101,12 +102,8 @@ rank_after_mask<-function(r,msk){
 
 A. Business Engagement 
 ============================================================================================
-Businesses participating (as of September 2018) in the [Tevi](https://tevi.co.uk) programme, award winners of the [Cornwall Sustainability Awards](https://www.cornwallsustainabilityawards.org) (2004-17) and [Cornwall Tourism Awards](http://www.cornwalltourismawards.org.uk) (2018 only).
-Click on marker for further information.
 
-
-
-Column {.tabset}
+Column {.tabset data-width=800}
 ------------------------------------------------------------------------------------------------------------
 ### Map 1 Tevi Businesses
 
@@ -178,9 +175,21 @@ hideGroup(c("CTA businesses"))
 
 ```
 
+Column {.tabset data-width=200}
+------------------------------------------------------------------------------------------------------------
+  
+   
+*__Map 1:__* Businesses participating (as of January 2019) in the [Tevi](https://tevi.co.uk) programme.  
+
+  
+*__Map 2:__* Business award winners of the [Cornwall Sustainability Awards](https://www.cornwallsustainabilityawards.org) (2004-17) and [Cornwall Tourism Awards](http://www.cornwalltourismawards.org.uk) (2018 only).  
+  
+  
+Click on markers for further information.  
+
+
 B. Ecosystem Services 
 ============================================================================================
-Important: The habitats and estimates of key ecosystem services presented here are calculated on the basis of 2015 landcover data.
 
 Column {.tabset}
 ------------------------------------------------------------------------------------------------------------
@@ -272,28 +281,44 @@ leaflet() %>%
 C. Nature network mapping 
 ============================================================================================
 
-Column {.tabset}
+Column {.tabset }
 ------------------------------------------------------------------------------------------------------------
 
 ### Nature network map     
-Prioritization of 'non-protected' areas according to estimates of their current biodiversity, connectivity and ecosystem services. Areas currently benefiting from SSSI, SAC, SPA, national or local natures reserves are excluded from ranking. The top twenty percent most highly ranked/valued areas are shown in three bands: Band1 = top 5%, Band 2=  5-10%, Band 3=  10-20%. Resolution = 100m2. Click top right icon on map to select layers.    
+   
 ```{r, echo=FALSE}
+prot.map1.filename<-paste0("maps/","protect/map_v25.html")
 
-prot.map1.filername<-paste0("maps/","protect/map_v25.html")
+htmltools::tags$iframe(src = prot.map1.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
 
-htmltools::tags$iframe(src = prot.map1.filername, frameborder="0", style="overflow: hidden; height: 90%; width: 100%; position: absolute;")
+```
+
+```{r, echo=FALSE}
+maptext.filename<-paste0("documentation/","NatureNetworkMap_text.html")
+
+htmltools::tags$iframe(src = maptext.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 20%; float: right")
+
 ```
 
 
 ### Method notes
 ```{r,echo=FALSE }
 
-natnetwork.doc<-paste0("documentation/","Prioritization_maps_documentation_webversion.htm")
+natnetwork.doc<-paste0("documentation/","NatureNetworkMap_documentation.html")
 
-htmltools::tags$iframe(src = natnetwork.doc, frameborder="0", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
+htmltools::tags$iframe(src = natnetwork.doc, frameborder="1", style="overflow: hidden; height: 100%; width: 100%; position: absolute;")
 ```
 
-   
+### Weight Table
+```{r,echo=FALSE }
+
+natnetwork_weights.doc<-paste0("documentation/","NatureNetworkMap_weightings.html")
+
+htmltools::tags$iframe(src = natnetwork_weights.doc, frameborder="1", style="overflow: hidden; height: 100%; width: 100%; position: absolute;")
+```
+
+
+
 D. Opportunity mapping 
 ============================================================================================
 
@@ -306,15 +331,22 @@ woodopp.data.df<-read.csv("data/documentation/woodland_data_table.csv" ,header=T
 ```
 
 ### Woodland opportunity map
-Prioritization of woodland creation opportunities on the basis of estimates of biodiversity and ecosystem services benefits Most highly ranked/valued oppoortunity areas are shown in three bands: Band1 = 50% increase in woodland cover, Band 1 & 2 =  doubling in woodland cover, Band 1,2 & 3 =  tripling in woodland cover. Resolution = 100m2. Click top right icon on map to select layers.
 
 ```{r, echo=FALSE}
 
 opp.map1.filername<-paste0("maps/","opps/opp_woodland_map_v14.html")
 
-htmltools::tags$iframe(src = opp.map1.filername, frameborder="0", style="overflow: hidden; height: 90%; width: 100%; position: absolute;")
+htmltools::tags$iframe(src = opp.map1.filername, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
 
 ```
+
+```{r, echo=FALSE}
+woodmaptext.filename<-paste0("documentation/","WoodlandOpportunityMap_text.html")
+
+htmltools::tags$iframe(src = woodmaptext.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 20%; float: right")
+
+```
+
 
 ### Method Notes
 ```{r child = 'PRIORITYMAP_2.Rmd'}
@@ -332,6 +364,7 @@ datatable(woodopp.data.df,options = list(dom = 't',ordering = FALSE,
           rownames=FALSE,colnames = c('Type of Factor','Factor','Key Data Source','Use in Map','Notes'))
 
 ```
+
 
 
 D. Area maps
