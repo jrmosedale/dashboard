@@ -334,7 +334,7 @@ woodopp.data.df<-read.csv("data/documentation/woodland_data_table.csv" ,header=T
 
 ```{r, echo=FALSE}
 
-opp.map1.filername<-paste0("maps/","opps/opp_woodland_map_v14.html")
+opp.map1.filername<-paste0("maps/","opps/opp_woodland_map_v16.html")
 
 htmltools::tags$iframe(src = opp.map1.filername, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
 
@@ -349,23 +349,30 @@ htmltools::tags$iframe(src = woodmaptext.filename, frameborder="1", style="overf
 
 
 ### Method Notes
-```{r child = 'PRIORITYMAP_2.Rmd'}
-
-# woodopp.method<-paste0("documentation/","Woodland creation test.html")
-# htmltools::tags$iframe(src = woodopp.method, frameborder="0", style="overflow: hidden; height: 100%; width: 100%; position: absolute;")
-
-```
-
-### Data Sources
 ```{r, echo=FALSE}
-## DISPLAY TABLE OF DATA SOURCES
-datatable(woodopp.data.df,options = list(dom = 't',ordering = FALSE,
-          pageLength = nrow(woodopp.data.df)),
-          rownames=FALSE,colnames = c('Type of Factor','Factor','Key Data Source','Use in Map','Notes'))
+
+woodopp.doc<-paste0("documentation/","WoodOpp_maps_documentation.html")
+
+htmltools::tags$iframe(src = woodopp.doc, frameborder="1", style="overflow: hidden; height: 100%; width: 100%; position: absolute;")
+
 
 ```
 
+### Weightings
+```{r, echo=FALSE}
 
+```
+
+### Recent Developments
+
+**March 2019**   
+  
+*__Excluding woodland from potential heather and moorland opportunity sites__* - early woodland opportunity maps identified several (generally degraded) areas of moorland  as potential woodland opportunities. For example St Breock down area was frequently identified. In general such areas could be distinguished by very acid soils, but such a definition would exclude areas of alkali moorland on the Lizard.  
+We will therefore adopt the Rural Payment's Agency 'moorline' that corresponds to 'land that is predominantly semi-nartural upland vegetation or rock outcrops used primarily for rough grazing'.  Woodland opportunities are entirely excluded from these areas as they are expected to be the focus of an alternative opportunity layer focussing on heather and moorland restoration.  
+  
+*__Active china clay and quarrying sites__* - we have currently excluded China Clay sites from consideration in the woodland opportunity map. However, it is several other active quarying sites are currently featuring in the opportunity map,for example, Delabole slate quarry. The extent of active quarrying at such sites can vary considerably and does not always correspond well with mapped quarry demarcations. Without any obvious data source available to idetnfiy active areas, we will exclude such sites on an ad-hic basis using aerial phtography (predoimnantly dating from 2015 or earlier).  
+
+  
 
 D. Area maps
 ============================================================================================
@@ -416,4 +423,8 @@ bsselect(cna.list, type = "iframe")
 ### Explanatory notes
 Some sort of explanation and/or legend could be placed here, perhaps including links to a methodology document etc?
 
+E. Contact
+============================================================================================
 
+For further information, questions or suggestions please contact:  
+J.Mosedale@exeter.ac.uk 
