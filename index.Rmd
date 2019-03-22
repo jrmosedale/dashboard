@@ -287,7 +287,7 @@ Column {.tabset }
 ### Nature network map     
    
 ```{r, echo=FALSE}
-prot.map1.filename<-paste0("maps/","protect/protect_map_v25.html")
+prot.map1.filename<-paste0("maps/","protect/protect_map_v26.html")
 
 htmltools::tags$iframe(src = prot.map1.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
 
@@ -334,7 +334,7 @@ woodopp.data.df<-read.csv("data/documentation/woodland_data_table.csv" ,header=T
 
 ```{r, echo=FALSE}
 
-opp.map1.filername<-paste0("maps/","opps/opp_woodland_map_v16.html")
+opp.map1.filername<-paste0("maps/","opps/opp_woodland_map_v17.html")
 
 htmltools::tags$iframe(src = opp.map1.filername, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
 
