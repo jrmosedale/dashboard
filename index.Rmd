@@ -100,7 +100,7 @@ rank_after_mask<-function(r,msk){
 
 ```
 
-A. Business Engagement 
+A. Business Activity 
 ============================================================================================
 
 Column {.tabset data-width=800}
@@ -175,6 +175,14 @@ hideGroup(c("CTA businesses"))
 
 ```
 
+### Map 3 Business locations
+```{r, echo=FALSE}
+busheatmap.filename<-"maps/tevi/business_heatmap.html"
+
+htmltools::tags$iframe(src = busheatmap.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 100%; position: absolute;")
+
+```
+
 Column {.tabset data-width=200}
 ------------------------------------------------------------------------------------------------------------
   
@@ -184,8 +192,12 @@ Column {.tabset data-width=200}
   
 *__Map 2:__* Business award winners of the [Cornwall Sustainability Awards](https://www.cornwallsustainabilityawards.org) (2004-17) and [Cornwall Tourism Awards](http://www.cornwalltourismawards.org.uk) (2018 only).  
   
-  
+
+*__Map 3:__* Business location heat and cluster map: shows business locations as heatmap and cluster markers.   
+
+ 
 Click on markers for further information.  
+
 
 
 B. Ecosystem Services 
@@ -334,9 +346,9 @@ woodopp.data.df<-read.csv("data/documentation/woodland_data_table.csv" ,header=T
 
 ```{r, echo=FALSE}
 
-opp.map1.filername<-paste0("maps/","opps/opp_woodland_map_v17.html")
+woodland.opp.filename<-paste0("maps/","opps/opp_woodland_map_v19.html")
 
-htmltools::tags$iframe(src = opp.map1.filername, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
+htmltools::tags$iframe(src = woodland.opp.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
 
 ```
 
@@ -347,6 +359,54 @@ htmltools::tags$iframe(src = woodmaptext.filename, frameborder="1", style="overf
 
 ```
 
+### Wetland opportunity map
+```{r, echo=FALSE}
+
+opp.wetland.filename<-paste0("maps/","opps/opp_wetland_map_v12.html")
+
+htmltools::tags$iframe(src = opp.wetland.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
+
+```
+
+```{r, echo=FALSE}
+# wetmaptext.filename<-paste0("documentation/","WetlandOpportunityMap_text.html")
+
+#htmltools::tags$iframe(src = woodmaptext.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 20%; float: right")
+
+```
+
+### Grassland opportunity map
+```{r, echo=FALSE}
+
+opp.grassland.filename<-paste0("maps/","opps/opp_grassland_map_v05.html")
+
+htmltools::tags$iframe(src = opp.grassland.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
+
+```
+
+```{r, echo=FALSE}
+# grassmaptext.filename<-paste0("documentation/","GrasslandOpportunityMap_text.html")
+
+# htmltools::tags$iframe(src = grassmaptext.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 20%; float: right")
+
+```
+
+### Synthesis opportunity map
+
+```{r, echo=FALSE}
+
+opp.synthesis.filename<-paste0("maps/","opps/opptype_wd19_wt12_gr05_v1_raster.tif.html")
+
+htmltools::tags$iframe(src = opp.synthesis.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
+
+```
+
+```{r, echo=FALSE}
+# synthmaptext.filename<-paste0("documentation/","GrasslandOpportunityMap_text.html")
+
+# htmltools::tags$iframe(src = synthmaptext.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 20%; float: right")
+
+```
 
 ### Method Notes
 ```{r, echo=FALSE}
@@ -374,12 +434,28 @@ We will therefore adopt the Rural Payment's Agency 'moorline' that corresponds t
 
   
 
-D. Area maps
+D. Other maps
 ============================================================================================
 This section is currently UNDER DEVELOPMENT
 
 Column {.tabset}
 ------------------------------------------------------------------------------------------------------------
+
+### 3D Maps
+```{r, echo=FALSE}
+
+glynnval.3d.filename<-paste0("maps/","threed/map3d_glynvalley.html")
+
+htmltools::tags$iframe(src = glynnval.3d.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
+
+```
+
+```{r, echo=FALSE}
+#woodmaptext.filename<-paste0("documentation/","WoodlandOpportunityMap_text.html")
+
+#htmltools::tags$iframe(src = woodmaptext.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 20%; float: right")
+
+```
 
 ### Community Network Areas
 
@@ -412,12 +488,6 @@ names(cna.list)<-cna.names
 bsselect(cna.list, type = "iframe")
 
 ```
-
-
-### Parishes
-
-
-### Catchments
 
 
 ### Explanatory notes
