@@ -444,9 +444,9 @@ Column {.tabset}
 ### 3D Maps
 ```{r, echo=FALSE}
 
-glynnval.3d.filename<-paste0("maps/","threed/map3d_glynvalley.html")
+fowey.3d.filename<-paste0("maps/","threed/map3d_foweycatch.html")
 
-htmltools::tags$iframe(src = glynnval.3d.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
+htmltools::tags$iframe(src = fowey.3d.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
 
 ```
 
