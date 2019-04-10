@@ -346,7 +346,7 @@ woodopp.data.df<-read.csv("data/documentation/woodland_data_table.csv" ,header=T
 
 ```{r, echo=FALSE}
 
-woodland.opp.filename<-paste0("maps/","opps/opp_woodland_map_v19.html")
+woodland.opp.filename<-paste0("maps/","opps/opp_woodland_map_v20.html")
 
 htmltools::tags$iframe(src = woodland.opp.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
 
@@ -391,7 +391,7 @@ htmltools::tags$iframe(src = opp.grassland.filename, frameborder="1", style="ove
 
 ```
 
-### Synthesis opportunity map
+### Summary opportunity map
 
 ```{r, echo=FALSE}
 
@@ -436,28 +436,40 @@ We will therefore adopt the Rural Payment's Agency 'moorline' that corresponds t
 
 D. Other maps
 ============================================================================================
-This section is currently UNDER DEVELOPMENT
 
 Column {.tabset}
 ------------------------------------------------------------------------------------------------------------
 
 ### 3D Maps
-```{r, echo=FALSE}
+Select Community Network area to show 3D terrain map with main categories of the dominant landcover.
 
-fowey.3d.filename<-paste0("maps/","threed/map3d_foweycatch.html")
+```{r, echo=FALSE, include=FALSE}
+# Create list of files names
+cna.shp<-st_read(paste0(in.root,"community_network_areas.shp"))
+st_crs(cna.shp)<-st_crs(27700)
+cna.shp<-st_transform(cna.shp,4326)
+cna.names<-paste0(cna.shp$NAME)
+cna.names<-sort(cna.names)
 
-htmltools::tags$iframe(src = fowey.3d.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
+map3d.list<-list.files("maps/threed",pattern="*.html")
+map3d.list<-sort(map3d.list)
+map3d.list<-paste0("maps/threed/",map3d.list)
+names(map3d.list)<-cna.names
+
+#fowey.3d.filename<-paste0("maps/","threed/map3d_foweycatch.html")
+#htmltools::tags$iframe(src = fowey.3d.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
 
 ```
 
-```{r, echo=FALSE}
-#woodmaptext.filename<-paste0("documentation/","WoodlandOpportunityMap_text.html")
+```{r,  echo=FALSE}
 
-#htmltools::tags$iframe(src = woodmaptext.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 20%; float: right")
+bsselect(map3d.list, type = "iframe", show_tick=TRUE,
+         frame_height = "100%", frame_width = "100%",
+         height="100%",width="100%", header="Community network area:")
 
 ```
 
-### Community Network Areas
+### Under Development
 
 ```{r,context='data', include=FALSE}
 ############################################
@@ -490,8 +502,8 @@ bsselect(cna.list, type = "iframe")
 ```
 
 
-### Explanatory notes
-Some sort of explanation and/or legend could be placed here, perhaps including links to a methodology document etc?
+### Notes
+
 
 E. Contact
 ============================================================================================

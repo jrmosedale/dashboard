@@ -1,7 +1,7 @@
 # Create Community Network Area maps
 
 # Load CNA shapefile data
-cna.shp<-st_read(paste0(in.root,"community_network_areas.shp"))
+cna.shp<-st_read(paste0(in.root,"Boundaries/Community_Network_Areas/community_network_areas.shp"))
 st_crs(cna.shp)<-st_crs(27700)
 cna.shp<-st_transform(cna.shp,4326)
 cna.list<-paste0(cna.shp$NAME)
