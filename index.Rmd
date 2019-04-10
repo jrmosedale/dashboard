@@ -221,6 +221,11 @@ abovecarbon.r<-raster(paste0(in.root,"ecoservices/ecoservice_aboveground_carbon.
 crs(abovecarbon.r)<- CRS('+init=EPSG:27700')
 abovecarbon.vals<-getValues(abovecarbon.r)
 
+# Soil carbon
+soilcarbon.r<-raster(paste0(in.root,"ecoservices/ecoservice_soilc.tif"))
+crs(soilcarbon.r)<- CRS('+init=EPSG:27700')
+soilcarbon.vals<-getValues(soilcarbon.r)
+
 # Pollination 
 pollination.r<-raster(paste0(in.root,"ecoservices/ecoservice_pollination.tif"))
 crs(pollination.r)<- CRS('+init=EPSG:27700')
@@ -251,8 +256,14 @@ catchqual.r<-raster(paste0(in.root,"ecoservices/ecoservice_catchmentquality.tif"
 crs(catchqual.r)<- CRS('+init=EPSG:27700')
 catchqual.vals<-getValues(catchqual.r)
 
-#servicepal<-colorBin("Greens", domain = NULL, bins = 7, na.color = "transparent")
-servicepal<-colorNumeric("YlOrRd", domain = NULL,  na.color = "transparent")
+servicepal<-colorBin("YlOrRd", domain = c(0,100),  na.color = "transparent")
+#servicepal1<-colorNumeric("YlOrRd", domain = c(0,100),  na.color = "transparent")
+#servicepal2<-colorNumeric("YlOrBr", domain =  c(0,100),  na.color = "transparent")
+#servicepal3<-colorNumeric("BuGn", domain =  c(0,100),  na.color = "transparent")
+#servicepal4<-colorNumeric("BuPu", domain =  c(0,78),  na.color = "transparent")
+#servicepal5<-colorNumeric("Blues", domain =  c(0,100),  na.color = "transparent")
+#servicepal6<-colorNumeric("Greens", domain =  c(0,100),  na.color = "transparent")
+
 
 ```
 
@@ -262,30 +273,30 @@ leaflet() %>%
   setView(lng = -4.9, lat = 50.4, zoom = 10)  %>%
   addProviderTiles("OpenStreetMap.Mapnik") %>%
   addScaleBar() %>%
-  addRasterImage(abovecarbon.r, colors=servicepal,
-               opacity = 0.8,project=TRUE, group="Aboveground_carbon") %>%
+  addRasterImage(soilcarbon.r, colors=servicepal,
+               opacity = 0.8,project=TRUE, group="Soil carbon") %>%
   addRasterImage(pollination.r, colors=servicepal,
                opacity = 0.8,project=TRUE, group="Pollination") %>%
   addRasterImage(soilmitig.r, colors=servicepal,
-               opacity = 0.8,project=TRUE, group="Soil_loss_mitigation") %>%
+               opacity = 0.8,project=TRUE, group="Soil loss mitigation") %>%
   addRasterImage(floodmitig.r, colors=servicepal,
-               opacity = 0.8,project=TRUE, group="Flood_mitigation") %>%
+               opacity = 0.8,project=TRUE, group="Flood mitigation") %>%
   addRasterImage(drinkqual.r, colors=servicepal,
-               opacity = 0.8,project=TRUE, group="Drinking_water") %>%
+               opacity = 0.8,project=TRUE, group="Drinking water") %>%
   addRasterImage(aquaqual.r, colors=servicepal,
                opacity = 0.8,project=TRUE, group="Aquaculture") %>%
   addRasterImage(bathqual.r, colors=servicepal,
-               opacity = 0.8,project=TRUE, group="Bathing_water") %>%
+               opacity = 0.8,project=TRUE, group="Bathing water") %>%
   addLegend(position = "bottomright",
             pal=servicepal, values=0:100,opacity=1) %>%
 
   addLayersControl(
-    baseGroups =c("Aboveground_carbon","Pollination","Soil_loss_mitigation",
-                     "Flood_mitigation","Drinking_water","Aquaculture","Bathing_water"),
+    baseGroups =c("Soil carbon","Pollination","Soil loss mitigation",
+                     "Flood mitigation","Drinking water","Aquaculture","Bathing water"),
     options = layersControlOptions(collapsed=FALSE)  )  %>%
   
-  hideGroup(c("Pollination","Soil_loss_mitigation",
-             "Flood_mitigation","Drinking_water","Aquaculture","Bathing_water"))
+  hideGroup(c("Pollination","Soil loss mitigation",
+             "Flood mitigation","Drinking water","Aquaculture","Bathing water"))
 
 ```
 
