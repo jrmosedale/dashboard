@@ -380,9 +380,9 @@ htmltools::tags$iframe(src = opp.wetland.filename, frameborder="1", style="overf
 ```
 
 ```{r, echo=FALSE}
-# wetmaptext.filename<-paste0("documentation/","WetlandOpportunityMap_text.html")
+wetmaptext.filename<-paste0("documentation/","WetlandOpportunityMap_text.html")
 
-#htmltools::tags$iframe(src = woodmaptext.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 20%; float: right")
+htmltools::tags$iframe(src = wetmaptext.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 20%; float: right")
 
 ```
 
@@ -396,9 +396,10 @@ htmltools::tags$iframe(src = opp.grassland.filename, frameborder="1", style="ove
 ```
 
 ```{r, echo=FALSE}
-# grassmaptext.filename<-paste0("documentation/","GrasslandOpportunityMap_text.html")
 
-# htmltools::tags$iframe(src = grassmaptext.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 20%; float: right")
+grassmaptext.filename<-paste0("documentation/","GrasslandOpportunityMap_text.html")
+
+htmltools::tags$iframe(src = grassmaptext.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 20%; float: right")
 
 ```
 
