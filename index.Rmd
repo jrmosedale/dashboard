@@ -407,7 +407,7 @@ htmltools::tags$iframe(src = grassmaptext.filename, frameborder="1", style="over
 
 ```{r, echo=FALSE}
 
-opp.synthesis.filename<-paste0("maps/","opps/opptype_wd19_wt12_gr05_v1_raster.tif.html")
+opp.synthesis.filename<-paste0("maps/","opps/opptype_wd19_wt12_gr05_v2_raster.tif.html")
 
 htmltools::tags$iframe(src = opp.synthesis.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
 
