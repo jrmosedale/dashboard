@@ -414,9 +414,9 @@ htmltools::tags$iframe(src = opp.synthesis.filename, frameborder="1", style="ove
 ```
 
 ```{r, echo=FALSE}
-# synthmaptext.filename<-paste0("documentation/","GrasslandOpportunityMap_text.html")
+synthmaptext.filename<-paste0("documentation/","SummaryOpportunityMap_text.html")
 
-# htmltools::tags$iframe(src = synthmaptext.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 20%; float: right")
+htmltools::tags$iframe(src = synthmaptext.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 20%; float: right")
 
 ```
 
