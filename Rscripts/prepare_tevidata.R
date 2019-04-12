@@ -29,6 +29,8 @@ st_crs(cna.shp)<-st_crs(27700)
 names(cna.shp)<-c("OBJECTID","CNA","MEMBERS","LINK", "PROFLINK","Shape_Leng","Shape_Area","geometry")
 
 tevibus<-st_read(paste0(in.root,"tevi/TeviEnterprises_130219.shp"))
+tevibus<-st_read(paste0(in.root,"tevi/tevi_enterprises/locations.shp"))
+
 st_crs(tevibus)<-st_crs(27700)
 
 #tevibus<- st_read(paste0("tevidata/Gazetteer261018/Gazetteer261018.shp"))

@@ -1,9 +1,12 @@
 # Create Community Network Area maps
-
+library(htmlwidgets)
+library(RColorBrewer)
+library(rgl)
+library(rayshader)
 # Load CNA shapefile data
 cna.shp<-st_read(paste0(in.root,"Boundaries/Community_Network_Areas/community_network_areas.shp"))
 st_crs(cna.shp)<-st_crs(27700)
-cna.shp<-st_transform(cna.shp,4326)
+#cna.shp<-st_transform(cna.shp,4326)
 cna.list<-paste0(cna.shp$NAME)
 names(cna.list)<-cna.list
 
@@ -23,7 +26,7 @@ plot(sea.r)
 landcover.r<-raster(paste0(dir_landcover,"landcover_simple_100m_res.tif"))
 lc.lup<-cbind(c(110,120,200,300,400,500,530,610,620,710,720, 800, 910, 920, 930),
               c(1,  1,  2,  3,   5, 2,   2, 3,   3,  3, 3,   0,   0,   0,   4))
-lc.col<-c("transparent","dark green","yellow","purple","black","orange")
+lc.col<-c("transparent","green","yellow","purple","black","orange")
 lc.r<-reclassify(landcover.r,lc.lup)
 plot(lc.r,col=lc.col)
 
@@ -36,7 +39,7 @@ plot(water.r)
 
 
 for (n in cna.list){
-for (n in cna.list[13:19]){
+for (n in cna.list[c(9)]){
     
   # Crop inputs to CNA 
   mask.shp<-cna.shp[which(cna.shp$NAME==n),]
@@ -73,24 +76,23 @@ for (n in cna.list[13:19]){
   
   rgl::rgl.clear()
   elev %>% 
-    sphere_shade(texture = "imhof4") %>% 
+    sphere_shade(texture = "imhof1") %>% 
     add_overlay(lc_image, alphalayer = 0.7) %>%
     add_water(water, color = "blue") %>%
     add_shadow(raymat, max_darken = 0.5) %>%
     add_shadow(ambmat, max_darken = 0.5) %>%
-    plot_3d(elev,zscale=z,zoom=1, windowsize=c(1000,700),
+    plot_3d(elev,zscale=z,zoom=0.5, windowsize=c(2000,1600),
             theta=-45 , phi=25)
   
   # Create filename for map
   mapname<-gsub(" ","_",n)
   mapname<-gsub( "[[:punct:]]", "", mapname) 
   #mapname<-paste0(dir_cna,"map",mapname,".html")
-  mapname<-paste0(dir_out,"map3d_",mapname,".html")
+  mapname<-paste0(dir_out,"map3d_",mapname,"_v2.html")
   print(mapname)
   
   # Save map as widget
   rglwidget() %>% saveWidget(file=mapname)
   
 }
-
 
