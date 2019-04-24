@@ -193,7 +193,7 @@ Column {.tabset data-width=200}
 *__Map 2:__* Business award winners of the [Cornwall Sustainability Awards](https://www.cornwallsustainabilityawards.org) (2004-17) and [Cornwall Tourism Awards](http://www.cornwalltourismawards.org.uk) (2018 only).  
   
 
-*__Map 3:__* Business location heat and cluster map: shows business locations as heatmap and cluster markers.   
+*__Map 3:__* Business locations: heatmap and cluster markers of business locations.   
 
  
 Click on markers for further information.  
@@ -210,6 +210,11 @@ Column {.tabset}
 ```{r,context='data', include=FALSE}
 
 # Load service rasters and determine palette for each
+
+# Aesthetics
+aesthetics.r<-raster(paste0(in.root,"ecoservices/ecoservice_aesthetics.tif"))
+crs(aesthetics.r)<- CRS('+init=EPSG:27700')
+aesthetics.vals<-getValues(aesthetics.r)
 
 # Soil loss mitigation
 soilmitig.r<-raster(paste0(in.root,"ecoservices/ecoservice_soillossmitig.tif"))
@@ -287,16 +292,20 @@ leaflet() %>%
                opacity = 0.8,project=TRUE, group="Aquaculture") %>%
   addRasterImage(bathqual.r, colors=servicepal,
                opacity = 0.8,project=TRUE, group="Bathing water") %>%
+  addRasterImage(aesthetics.r, colors=servicepal,
+               opacity = 0.8,project=TRUE, group="Aesthetics") %>%
+
   addLegend(position = "bottomright",
             pal=servicepal, values=0:100,opacity=1) %>%
 
   addLayersControl(
     baseGroups =c("Soil carbon","Pollination","Soil loss mitigation",
-                     "Flood mitigation","Drinking water","Aquaculture","Bathing water"),
+                     "Flood mitigation","Drinking water","Aquaculture","Bathing water",
+                  "Aesthetics"),
     options = layersControlOptions(collapsed=FALSE)  )  %>%
   
   hideGroup(c("Pollination","Soil loss mitigation",
-             "Flood mitigation","Drinking water","Aquaculture","Bathing water"))
+             "Flood mitigation","Drinking water","Aquaculture","Bathing water", "Aesthetics"))
 
 ```
 
