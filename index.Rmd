@@ -208,6 +208,7 @@ Column {.tabset}
 
 ### Maps of Services
 ```{r,context='data', include=FALSE}
+cornwall<-st_read("data/Cornwall.shp")
 
 # Load service rasters and determine palette for each
 
@@ -227,7 +228,7 @@ crs(abovecarbon.r)<- CRS('+init=EPSG:27700')
 abovecarbon.vals<-getValues(abovecarbon.r)
 
 # Soil carbon
-soilcarbon.r<-raster(paste0(in.root,"ecoservices/ecoservice_soilc.tif"))
+soilcarbon.r<-mask(raster(paste0(in.root,"ecoservices/ecoservice_soilc.tif")),cornwall)
 crs(soilcarbon.r)<- CRS('+init=EPSG:27700')
 soilcarbon.vals<-getValues(soilcarbon.r)
 
@@ -237,31 +238,33 @@ crs(pollination.r)<- CRS('+init=EPSG:27700')
 pollination.vals<-getValues(pollination.r)
 
 # Flood mitigation
-floodmitig.r<-raster(paste0(in.root,"ecoservices/ecoservice_floodmitig.tif"))
+floodmitig.r<-mask(raster(paste0(in.root,"ecoservices/ecoservice_floodmitig.tif")),cornwall)
 crs(floodmitig.r)<- CRS('+init=EPSG:27700')
 floodmitig.vals<-getValues(floodmitig.r)
 
 # Drinking water quality
-drinkqual.r<-raster(paste0(in.root,"ecoservices/ecoservice_drinkwater.tif"))
+drinkqual.r<-mask(raster(paste0(in.root,"ecoservices/ecoservice_drinkwater.tif")),cornwall)
 crs(drinkqual.r)<- CRS('+init=EPSG:27700')
 drinkqual.vals<-getValues(drinkqual.r)
 
 # Aquaculture water quality
-aquaqual.r<-raster(paste0(in.root,"ecoservices/ecoservice_aquaculture.tif"))
+aquaqual.r<-mask(raster(paste0(in.root,"ecoservices/ecoservice_aquaculture.tif")),cornwall)
 crs(aquaqual.r)<- CRS('+init=EPSG:27700')
 aquaqual.vals<-getValues(aquaqual.r)
 
 # Bathing water quality 
-bathqual.r<-raster(paste0(in.root,"ecoservices/ecoservice_bathingwater.tif"))
+bathqual.r<-mask(raster(paste0(in.root,"ecoservices/ecoservice_bathingwater.tif")),cornwall)
 crs(bathqual.r)<- CRS('+init=EPSG:27700')
 bathqual.vals<-getValues(bathqual.r)
 
 # Not good catchments water quality 
-catchqual.r<-raster(paste0(in.root,"ecoservices/ecoservice_catchmentquality.tif"))
+catchqual.r<-mask(raster(paste0(in.root,"ecoservices/ecoservice_catchmentquality.tif")),cornwall)
 crs(catchqual.r)<- CRS('+init=EPSG:27700')
 catchqual.vals<-getValues(catchqual.r)
 
+
 servicepal<-colorBin("YlOrRd", domain = c(0,100),  na.color = "transparent")
+
 #servicepal1<-colorNumeric("YlOrRd", domain = c(0,100),  na.color = "transparent")
 #servicepal2<-colorNumeric("YlOrBr", domain =  c(0,100),  na.color = "transparent")
 #servicepal3<-colorNumeric("BuGn", domain =  c(0,100),  na.color = "transparent")
@@ -309,8 +312,49 @@ leaflet() %>%
 
 ```
 
+C. Light emissions 
+============================================================================================
 
-C. Nature network mapping 
+Column {.tabset}
+------------------------------------------------------------------------------------------------------------
+
+### Light maps
+
+```{r,context='data', include=FALSE}
+lightemission.r<-mask(raster(paste0(in.root,"ecoservices/light_emissions.tif")),cornwall)
+crs(lightemission.r)<- CRS('+init=EPSG:27700')
+lightem.vals<-getValues(lightemission.r)
+
+lightskyglow.r<-mask(raster(paste0(in.root,"ecoservices/light_skyglow.tif")),cornwall)
+crs(lightskyglow.r)<- CRS('+init=EPSG:27700')
+lightsky.vals<-getValues(lightskyglow.r)
+
+sgpal<-colorBin("Spectral", reverse=TRUE,domain = c(0:1.5),bins=c(0,0.05,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1.5) ,na.color = "transparent")
+empal<-colorBin("Spectral", reverse=TRUE,domain = c(0:1.46),bins=c(0,0.25,0.5,1,1.2,1.4,1.3,1.44,1.45) ,na.color = "transparent")
+
+servicepal<-colorBin("YlOrRd", domain = c(0,100),  na.color = "transparent")
+```
+
+```{r,  echo=FALSE}
+
+leaflet() %>% 
+  setView(lng = -4.9, lat = 50.4, zoom = 10)  %>%
+  addProviderTiles("OpenStreetMap.Mapnik") %>%
+  addScaleBar() %>%
+  addRasterImage(lightemission.r, colors=empal,
+               opacity = 0.7,project=TRUE, group="Emissions") %>%
+  addRasterImage(lightskyglow.r, colors=sgpal,
+               opacity = 0.7,project=TRUE, group="Skyglow") %>%
+
+  addLayersControl(
+    baseGroups =c(   "Emissions", "Skyglow"),
+    options = layersControlOptions(collapsed=FALSE)  )  %>%
+  
+  hideGroup(c("Skyglow"))
+
+```
+
+D. Nature network mapping 
 ============================================================================================
 
 Column {.tabset }
@@ -351,7 +395,7 @@ htmltools::tags$iframe(src = natnetwork_weights.doc, frameborder="1", style="ove
 
 
 
-D. Opportunity mapping 
+E. Opportunity mapping 
 ============================================================================================
 
 Column {.tabset}
@@ -455,7 +499,7 @@ We will therefore adopt the Rural Payment's Agency 'moorline' that corresponds t
 
   
 
-D. Other maps
+F. Other maps
 ============================================================================================
 
 Column {.tabset}
@@ -526,7 +570,7 @@ bsselect(cna.list, type = "iframe")
 ### Notes
 
 
-E. Contact
+G. Contact
 ============================================================================================
 
 For further information, questions or suggestions please contact:  
