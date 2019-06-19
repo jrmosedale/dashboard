@@ -200,13 +200,13 @@ Click on markers for further information.
 
 
 
-B. Ecosystem Services 
+B. Landcover & Ecosystem Services 
 ============================================================================================
 
 Column {.tabset}
 ------------------------------------------------------------------------------------------------------------
 
-### Maps of Services
+### Ecosystem Services
 ```{r,context='data', include=FALSE}
 cornwall<-st_read("data/Cornwall.shp")
 
@@ -309,6 +309,15 @@ leaflet() %>%
   
   hideGroup(c("Pollination","Soil loss mitigation",
              "Flood mitigation","Drinking water","Aquaculture","Bathing water", "Aesthetics"))
+
+```
+
+
+### Urban change
+```{r, echo=FALSE}
+urbanchange.filename<-paste0("maps/","urbanchange.html")
+
+htmltools::tags$iframe(src = urbanchange.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
 
 ```
 
