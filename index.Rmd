@@ -207,110 +207,13 @@ Column {.tabset}
 ------------------------------------------------------------------------------------------------------------
 
 ### Ecosystem Services
-```{r,context='data', include=FALSE}
-cornwall<-st_read("data/Cornwall.shp")
+```{r, echo=FALSE}
+ecomap.filename<-paste0("maps/","ecoservices/ecoservice_map.html")
 
-# Load service rasters and determine palette for each
-
-# Aesthetics
-aesthetics.r<-raster(paste0(in.root,"ecoservices/ecoservice_aesthetics.tif"))
-crs(aesthetics.r)<- CRS('+init=EPSG:27700')
-aesthetics.vals<-getValues(aesthetics.r)
-
-# Soil loss mitigation
-soilmitig.r<-raster(paste0(in.root,"ecoservices/ecoservice_soillossmitig.tif"))
-crs(soilmitig.r)<- CRS('+init=EPSG:27700')
-soilmitig.vals<-getValues(soilmitig.r)
-
-# Aboveground carbon 
-abovecarbon.r<-raster(paste0(in.root,"ecoservices/ecoservice_aboveground_carbon.tif"))
-crs(abovecarbon.r)<- CRS('+init=EPSG:27700')
-abovecarbon.vals<-getValues(abovecarbon.r)
-
-# Soil carbon
-soilcarbon.r<-mask(raster(paste0(in.root,"ecoservices/ecoservice_soilc.tif")),cornwall)
-crs(soilcarbon.r)<- CRS('+init=EPSG:27700')
-soilcarbon.vals<-getValues(soilcarbon.r)
-
-# Pollination 
-pollination.r<-raster(paste0(in.root,"ecoservices/ecoservice_pollination.tif"))
-crs(pollination.r)<- CRS('+init=EPSG:27700')
-pollination.vals<-getValues(pollination.r)
-
-# Flood mitigation
-floodmitig.r<-mask(raster(paste0(in.root,"ecoservices/ecoservice_floodmitig.tif")),cornwall)
-crs(floodmitig.r)<- CRS('+init=EPSG:27700')
-floodmitig.vals<-getValues(floodmitig.r)
-
-# Drinking water quality
-drinkqual.r<-mask(raster(paste0(in.root,"ecoservices/ecoservice_drinkwater.tif")),cornwall)
-crs(drinkqual.r)<- CRS('+init=EPSG:27700')
-drinkqual.vals<-getValues(drinkqual.r)
-
-# Aquaculture water quality
-aquaqual.r<-mask(raster(paste0(in.root,"ecoservices/ecoservice_aquaculture.tif")),cornwall)
-crs(aquaqual.r)<- CRS('+init=EPSG:27700')
-aquaqual.vals<-getValues(aquaqual.r)
-
-# Bathing water quality 
-bathqual.r<-mask(raster(paste0(in.root,"ecoservices/ecoservice_bathingwater.tif")),cornwall)
-crs(bathqual.r)<- CRS('+init=EPSG:27700')
-bathqual.vals<-getValues(bathqual.r)
-
-# Not good catchments water quality 
-catchqual.r<-mask(raster(paste0(in.root,"ecoservices/ecoservice_catchmentquality.tif")),cornwall)
-crs(catchqual.r)<- CRS('+init=EPSG:27700')
-catchqual.vals<-getValues(catchqual.r)
-
-
-servicepal<-colorBin("YlOrRd", domain = c(0,100),  na.color = "transparent")
-
-#servicepal1<-colorNumeric("YlOrRd", domain = c(0,100),  na.color = "transparent")
-#servicepal2<-colorNumeric("YlOrBr", domain =  c(0,100),  na.color = "transparent")
-#servicepal3<-colorNumeric("BuGn", domain =  c(0,100),  na.color = "transparent")
-#servicepal4<-colorNumeric("BuPu", domain =  c(0,78),  na.color = "transparent")
-#servicepal5<-colorNumeric("Blues", domain =  c(0,100),  na.color = "transparent")
-#servicepal6<-colorNumeric("Greens", domain =  c(0,100),  na.color = "transparent")
-
+htmltools::tags$iframe(src = ecomap.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
 
 ```
 
-```{r,  echo=FALSE}
-
-leaflet() %>% 
-  setView(lng = -4.9, lat = 50.4, zoom = 10)  %>%
-  addProviderTiles("OpenStreetMap.Mapnik") %>%
-  addScaleBar() %>%
-  addRasterImage(soilcarbon.r, colors=servicepal,
-               opacity = 0.8,project=TRUE, group="Soil carbon") %>%
-  addRasterImage(pollination.r, colors=servicepal,
-               opacity = 0.8,project=TRUE, group="Pollination") %>%
-  addRasterImage(soilmitig.r, colors=servicepal,
-               opacity = 0.8,project=TRUE, group="Soil loss mitigation") %>%
-  addRasterImage(floodmitig.r, colors=servicepal,
-               opacity = 0.8,project=TRUE, group="Flood mitigation") %>%
-  addRasterImage(drinkqual.r, colors=servicepal,
-               opacity = 0.8,project=TRUE, group="Drinking water") %>%
-  addRasterImage(aquaqual.r, colors=servicepal,
-               opacity = 0.8,project=TRUE, group="Aquaculture") %>%
-  addRasterImage(bathqual.r, colors=servicepal,
-               opacity = 0.8,project=TRUE, group="Bathing water") %>%
-  addRasterImage(aesthetics.r, colors=servicepal,
-               opacity = 0.8,project=TRUE, group="Aesthetics") %>%
-
-  addLegend(position = "bottomright",
-            pal=servicepal, values=0:100,opacity=1) %>%
-
-  addLayersControl(
-    baseGroups =c("Soil carbon","Pollination","Soil loss mitigation",
-                     "Flood mitigation","Drinking water","Aquaculture","Bathing water",
-                  "Aesthetics"),
-    options = layersControlOptions(collapsed=FALSE)  )  %>%
-  
-  hideGroup(c("Pollination","Soil loss mitigation",
-             "Flood mitigation","Drinking water","Aquaculture","Bathing water", "Aesthetics"))
-
-```
 
 
 ### Urban change
@@ -327,41 +230,15 @@ C. Light emissions
 Column {.tabset}
 ------------------------------------------------------------------------------------------------------------
 
-### Light maps
+### Light maps 
+```{r, echo=FALSE}
+ecomap.filename<-paste0("maps/","light/light_map.html")
 
-```{r,context='data', include=FALSE}
-lightemission.r<-mask(raster(paste0(in.root,"ecoservices/light_emissions.tif")),cornwall)
-crs(lightemission.r)<- CRS('+init=EPSG:27700')
-lightem.vals<-getValues(lightemission.r)
-
-lightskyglow.r<-mask(raster(paste0(in.root,"ecoservices/light_skyglow.tif")),cornwall)
-crs(lightskyglow.r)<- CRS('+init=EPSG:27700')
-lightsky.vals<-getValues(lightskyglow.r)
-
-sgpal<-colorBin("Spectral", reverse=TRUE,domain = c(0:1.5),bins=c(0,0.05,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1.5) ,na.color = "transparent")
-empal<-colorBin("Spectral", reverse=TRUE,domain = c(0:1.46),bins=c(0,0.25,0.5,1,1.2,1.4,1.3,1.44,1.45) ,na.color = "transparent")
-
-servicepal<-colorBin("YlOrRd", domain = c(0,100),  na.color = "transparent")
-```
-
-```{r,  echo=FALSE}
-
-leaflet() %>% 
-  setView(lng = -4.9, lat = 50.4, zoom = 10)  %>%
-  addProviderTiles("OpenStreetMap.Mapnik") %>%
-  addScaleBar() %>%
-  addRasterImage(lightemission.r, colors=empal,
-               opacity = 0.7,project=TRUE, group="Emissions") %>%
-  addRasterImage(lightskyglow.r, colors=sgpal,
-               opacity = 0.7,project=TRUE, group="Skyglow") %>%
-
-  addLayersControl(
-    baseGroups =c(   "Emissions", "Skyglow"),
-    options = layersControlOptions(collapsed=FALSE)  )  %>%
-  
-  hideGroup(c("Skyglow"))
+htmltools::tags$iframe(src = ecomap.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
 
 ```
+
+
 
 D. Nature network mapping 
 ============================================================================================
@@ -372,7 +249,7 @@ Column {.tabset }
 ### Nature network map     
    
 ```{r, echo=FALSE}
-prot.map1.filename<-paste0("maps/","protect/protect_map_v26.html")
+prot.map1.filename<-paste0("maps/","protect/map_v07.html")
 
 htmltools::tags$iframe(src = prot.map1.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
 
@@ -419,7 +296,7 @@ woodopp.data.df<-read.csv("data/documentation/woodland_data_table.csv" ,header=T
 
 ```{r, echo=FALSE}
 
-woodland.opp.filename<-paste0("maps/","opps/opp_woodland_map_v20.html")
+woodland.opp.filename<-paste0("maps/","opps/opp_woodland_map_v09.html")
 
 htmltools::tags$iframe(src = woodland.opp.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
 
@@ -435,7 +312,7 @@ htmltools::tags$iframe(src = woodmaptext.filename, frameborder="1", style="overf
 ### Wetland opportunity map
 ```{r, echo=FALSE}
 
-opp.wetland.filename<-paste0("maps/","opps/opp_wetland_map_v12.html")
+opp.wetland.filename<-paste0("maps/","opps/opp_wetland_map_v01.html")
 
 htmltools::tags$iframe(src = opp.wetland.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
 
@@ -448,20 +325,20 @@ htmltools::tags$iframe(src = wetmaptext.filename, frameborder="1", style="overfl
 
 ```
 
-### Grassland opportunity map
+### Lowland heath opportunity map
 ```{r, echo=FALSE}
 
-opp.grassland.filename<-paste0("maps/","opps/opp_grassland_map_v05.html")
+opp.heathland.filename<-paste0("maps/","opps/opp_heathland_map_v05.html")
 
-htmltools::tags$iframe(src = opp.grassland.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
+htmltools::tags$iframe(src = opp.heathland.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
 
 ```
 
 ```{r, echo=FALSE}
 
-grassmaptext.filename<-paste0("documentation/","GrasslandOpportunityMap_text.html")
+heathmaptext.filename<-paste0("documentation/","LowheathOpportunityMap_text.html")
 
-htmltools::tags$iframe(src = grassmaptext.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 20%; float: right")
+htmltools::tags$iframe(src = heathmaptext.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 20%; float: right")
 
 ```
 
@@ -469,7 +346,7 @@ htmltools::tags$iframe(src = grassmaptext.filename, frameborder="1", style="over
 
 ```{r, echo=FALSE}
 
-opp.synthesis.filename<-paste0("maps/","opps/opptype_wd19_wt12_gr05_v2_raster.tif.html")
+opp.synthesis.filename<-paste0("maps/","opps/oppmap_v2.html")
 
 htmltools::tags$iframe(src = opp.synthesis.filename, frameborder="1", style="overflow: hidden; height: 100%; width: 80%; position: absolute;")
 
@@ -499,14 +376,6 @@ htmltools::tags$iframe(src = woodopp.doc, frameborder="1", style="overflow: hidd
 
 ### Recent Developments
 
-**March 2019**   
-  
-*__Excluding woodland from potential heather and moorland opportunity sites__* - early woodland opportunity maps identified several (generally degraded) areas of moorland  as potential woodland opportunities. For example St Breock down area was frequently identified. In general such areas could be distinguished by very acid soils, but such a definition would exclude areas of alkali moorland on the Lizard.  
-We will therefore adopt the Rural Payment's Agency 'moorline' that corresponds to 'land that is predominantly semi-nartural upland vegetation or rock outcrops used primarily for rough grazing'.  Woodland opportunities are entirely excluded from these areas as they are expected to be the focus of an alternative opportunity layer focussing on heather and moorland restoration.  
-  
-*__Active china clay and quarrying sites__* - we have currently excluded China Clay sites from consideration in the woodland opportunity map. However, it is several other active quarying sites are currently featuring in the opportunity map,for example, Delabole slate quarry. The extent of active quarrying at such sites can vary considerably and does not always correspond well with mapped quarry demarcations. Without any obvious data source available to idetnfiy active areas, we will exclude such sites on an ad-hic basis using aerial phtography (predoimnantly dating from 2015 or earlier).  
-
-  
 
 F. Other maps
 ============================================================================================
